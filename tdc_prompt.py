@@ -311,33 +311,6 @@ def get_P_R_prompt(prompt, P, R):
     output = [prompt.format(product=p, reactant=r) for p, r in zip(P, R)]
     return output
 
-# def get_tox21_prompt(subtask, Drug, Y, label_dict=None):
-#     '''
-#     Tox21 Task
-#     '''
-#     assert len(Drug) == len(Y)
-    
-#     Drug = drug_preprocess(Drug)
-#     Y = [int(y) for y in Y]
-
-#     prompt = TOX21[subtask]
-#     output = [prompt.format(smiles=x, label=label_dict[y]) for x, y in zip(Drug, Y)]
-#     return output
-
-# def get_herg_central_prompt(subtask, Drug, Y, label_dict=None):
-#     '''
-#     herg_central Task
-#     '''
-#     assert len(Drug) == len(Y)
-    
-#     Drug = drug_preprocess(Drug)
-#     Y = [int(y) for y in Y]
-
-#     prompt = HERG_CENTRAL[subtask]
-#     output = [prompt.format(smiles=x, label=label_dict[y]) for x, y in zip(Drug, Y)]
-#     return output
-
-
 if __name__ == '__main__':
     print(f"Total single regression task: {len(SINGLE_REGRESSION_TASK)}")
     print(f"Total single classification task: {len(SINGLE_CLASSIFICATION_TASK)}")

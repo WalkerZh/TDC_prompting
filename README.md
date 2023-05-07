@@ -19,7 +19,7 @@ python load_data.py --dataset <dataset_name>
 
 
 
-All prompts are save in `tdc_prompt.py`
+All prompts are saved in `tdc_prompt.py`
 
 
 

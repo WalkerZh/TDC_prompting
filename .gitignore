@@ -1,1 +1,3 @@
 data/
+prompt_data/*.txt
+try.py

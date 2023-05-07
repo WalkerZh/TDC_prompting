@@ -6,7 +6,7 @@ import argparse
 # print(label_list)
 
 from tdc.generation import RetroSyn
-data = RetroSyn(name = 'USPTO')
+data = RetroSyn(name = 'USPTO-50K')
 split = data.get_split()
 
 print(split['valid'])
@@ -14,5 +14,5 @@ print(split['valid'])
 # print(split['test']['Reaction'][14])
 # print(type(split['test']['Y'][1]))
 
-# from tdc.utils import get_reaction_type
-# print(get_reaction_type('USPTO-50K'))
+# from tdc.utils import get_label_map
+# print(get_label_map(name = 'TWOSIDES', task = 'DDI', name_column = 'Side Effect Name'))

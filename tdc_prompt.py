@@ -3,21 +3,21 @@ import re
 
 DRUG_Y = {
     "Caco2_Wang": r"The experimental result on the rate of {smiles} passing through the Caco-2 cells is {label}.",
-    "PAMPA_NCATS": r"The compound {smiles} has {label} permeability in PAMPA assay(parallel artificial membrane permeability assay).",
+    "PAMPA_NCATS": r"The compound {smiles} has {label} permeability in parallel artificial membrane permeability assay(PAMPA assay).",
     "HIA_Hou": r"The HIA(Human Intestinal Absorption) activity of {smiles} is {label}.",
-    "Pgp_Broccatelli": r"The compound {smiles} is {label} in inhibiting P-glycoprotein (Pgp).",
+    "Pgp_Broccatelli": r"The compound {smiles} is {label} in inhibiting P-glycoprotein(Pgp).",
     "Bioavailability_Ma": r"The oral bioavailability activity of {smiles} is {label}.",
     "Lipophilicity_AstraZeneca": r"The ability of {smiles} to dissolve in a lipid (e.g. fats, oils) environment is {label}.", # units?
     "Solubility_AqSolDB": r"The ability of {smiles} to dissolve in water is {label}.", # units?
     "HydrationFreeEnergy_FreeSolv": r"The experimental and calculated hydration free energy of {smiles} in water is {label}.", # units?
-    "BBB_Martins": r"The ability of {smiles} to penetrate the BBB(Blood-Brain Barrier) is {label}.",
+    "BBB_Martins": r"The ability of {smiles} to penetrate the Blood-Brain Barrier(BBB) is {label}.",
     "PPBR_AZ": r"The percentage of {smiles} bound to plasma proteins in the blood, i.e. its human plasma protein binding rate (PPBR) is {label}.", # improve?
     "VDss_Lombardo": r"The volume of distribution at steady state (VDss) of {smiles}, i.e. the degree of its concentration in body tissue compared to concentration in blood is {label}.", # improve
-    "CYP2C19_Veith": r"The compound {smiles} is {label} in inhibiting CYP2C19 gene, which provides instructions for making an enzyme called the endoplasmic reticulum.",
-    "CYP2D6_Veith": r"The compound {smiles} is {label} in inhibiting CYP2D6, which is primarily expressed in the liver.",
-    "CYP3A4_Veith": r"The compound {smiles} is {label} in inhibiting CYP3A4, which is an important enzyme that oxidizes small foreign organic molecules in the body.",
-    "CYP1A2_Veith": r"The compound {smiles} is {label} in inhibiting CYP1A2, which is able to metabolize some PAHs to carcinogenic intermediates.",
-    "CYP2C9_Veith": r"The compound {smiles} is {label} in inhibiting CYP2C9, which plays a major role in the oxidation of both xenobiotic and endogenous compounds.",
+    "CYP2C19_Veith": r"The compound {smiles} is {label} in inhibiting the CYP2C19 gene, which provides instructions for making an enzyme called the endoplasmic reticulum.",
+    "CYP2D6_Veith": r"The compound {smiles} is {label} in inhibiting the CYP2D6, which is primarily expressed in the liver.",
+    "CYP3A4_Veith": r"The compound {smiles} is {label} in inhibiting the CYP3A4, which is an important enzyme that oxidizes small foreign organic molecules in the body.",
+    "CYP1A2_Veith": r"The compound {smiles} is {label} in inhibiting the CYP1A2, which is able to metabolize some PAHs to carcinogenic intermediates.",
+    "CYP2C9_Veith": r"The compound {smiles} is {label} in inhibiting the CYP2C9, which plays a major role in the oxidation of both xenobiotic and endogenous compounds.",
     "CYP2C9_Substrate_CarbonMangels": r"The compound {smiles} {label} a substrate to the CYP2C9 enzyme.",
     "CYP2D6_Substrate_CarbonMangels": r"The compound {smiles} {label} a substrate to the CYP2D6 enzyme.",
     "CYP3A4_Substrate_CarbonMangels": r"The compound {smiles} {label} a substrate to the CYP3A4 enzyme.",
@@ -30,8 +30,8 @@ DRUG_Y = {
     "AMES": r"Mutagenicity means the ability of a drug to induce genetic alterations, the compound {smiles} {label} mutagenic.",
     "DILI": r"The compound {smiles} {label} cause liver injury.",
     "Skin Reaction": r"The compound {smiles} {label} cause skin reaction.",
-    "Carcinogens_Lagunin": r"The compound {smiles} {label} cause carcinogen, which  is any substance, radionuclide, or radiation that promotes carcinogenesis, the formation of cancer.",
-    "ClinTox": r"The compound {smiles} have {label} clinical trials for toxicity reasons.",
+    "Carcinogens_Lagunin": r"The compound {smiles} {label} cause carcinogen, which is any substance, radionuclide, or radiation that promotes carcinogenesis, the formation of cancer.",
+    "ClinTox": r"The compound {smiles} has {label} clinical trials for toxicity reasons.",
     #  ------ Tox
     "SARSCoV2_Vitro_Touret": r"The activity of {smiles} against SARS-CoV-2 is {label}.",
     "SARSCoV2_3CLPro_Diamond": r"The activity of {smiles} against SARS-CoV-2 3C-like protease(SARSCoV2 3CL) is {label}.",
@@ -54,7 +54,7 @@ HERG_CENTRAL = { # DRUG_Y format
     "hERG_inhib": r"The compound {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.", # whether hERG_at_10uM < -50, i.e. whether the compound has an IC50 of less than 10µM.
 }
 
-TOX21 = {
+TOX21 = { # DRUG_Y format
     "NR-AR": r"The compound {smiles} {label} activate the Androgen Receptor(AR).",
     "NR-AR-LBD": r"The compound {smiles} {label} activate the Androgen Receptor Ligand Binding Domain(AR-LBD).",
     "NR-AhR": r"The compound {smiles} {label} activate the aryl hydrocarbon Receptor(AhR).",
@@ -74,26 +74,26 @@ QM8 = {}
 QM9 = {}
 
 DRUG1_DRUG2_Y = {
-    "TWOSIDES": r"The concurrent use of {smiles_1} and {smiles_2} can cause {label}, which is one of polypharmacy side-effects.",
-}
+    "TWOSIDES": r"The concurrent use of {smiles_1} and {smiles_2} can cause {label}, which is one of the polypharmacy side-effects.",
+} # "DrugBank"
 
-R_C_P_L = {
-    "Buchwald-Hartwig": r"In Pd-catalysed Buchwald-Hartwig C-N cross coupling reactions, the yields of product {product},", # todo
-    "USPTO_Yields": r"the yields of product {product} {reactant} {catalyst} is {label}.", # todo
-}
+# R_C_P_L = {
+#     "Buchwald-Hartwig": r"In Pd-catalysed Buchwald-Hartwig C-N cross coupling reactions, the yields of product {product},", # todo
+#     "USPTO_Yields": r"The yields of product {product} {reactant} {catalyst} is {label}.", # todo
+# }
 
-R_C_P = {
-    "USPTO_Catalyst": r"",
-}
+# R_C_P = {
+#     "USPTO_Catalyst": r"",
+# }
 
 P_R = {
-    "USPTO-50K": r"",
-    "USPTO_retrosyn": r"", # noticed
+    "USPTO-50K": r"To synthesize {product}, we can use the reactant {reactant}.",
+    "USPTO": r"To synthesize {product}, we can use the reactant {reactant}.",
 }
 
-R_P = {
-    "USPTO_reaction": r"", # noticed
-}
+# R_P = {
+#     "USPTO_reaction": r"", # noticed
+# }
 
 SINGLE_REGRESSION_TASK = ["Caco2_Wang", "Lipophilicity_AstraZeneca", "Solubility_AqSolDB",
                           "HydrationFreeEnergy_FreeSolv", "PPBR_AZ", "VDss_Lombardo", "Half_Life_Obach", "Clearance_Hepatocyte_AZ",
@@ -102,7 +102,6 @@ SINGLE_REGRESSION_TASK = ["Caco2_Wang", "Lipophilicity_AstraZeneca", "Solubility
                           # ------ Tox
                           # ------ HTS(none)
                           # ------ QM
-                          "Buchwald-Hartwig", "USPTO_Yields",
                           # ------ Yields
                           ]
 SINGLE_CLASSIFICATION_TASK = ["PAMPA_NCATS", "HIA_Hou", "Pgp_Broccatelli", "Bioavailability_Ma", "BBB_Martins",
@@ -137,9 +136,9 @@ CLASSIFICATION_LABEL = {
     "CYP2D6_Substrate_CarbonMangels": {0: "is not", 1: "is"},
     "CYP3A4_Substrate_CarbonMangels": {0: "is not", 1: "is"}, #todo 0/1 =>'is/is not' or 'is not/is'
     # ------ ADME
-    "hERG": {0: "not blocks", 1: "blocks"},
-    "hERG_Karim": {0: "not blocks", 1: "blocks"},
-    "hERG_inhib": {0: "not blocks", 1: "blocks"},
+    "hERG": {0: "does not block", 1: "blocks"},
+    "hERG_Karim": {0: "does not block", 1: "blocks"},
+    "hERG_inhib": {0: "does not block", 1: "blocks"},
     "AMES": {0: "is not", 1: "is"},
     "DILI": {0: "cannot", 1: "can"},
     "Skin Reaction": {0: "cannot", 1: "can"},
@@ -174,27 +173,100 @@ CLASSIFICATION_LABEL = {
 }
 
 
+def drug_preprocess(drug):
+    '''
+    list of smiles
+    '''
+    return drug
 
-
+def smi_preprocess(smi):
+    '''
+    single smiles
+    '''
+    return smi
 
 def task_hub(dataset, data, subtask=None, label_index=None):
     '''
     subtask: for multi-subtask tasks, e.g. tox21.
     label_index: for DDI task
     '''
-    if dataset == "herg_central":
-        1
+    drug_y_task = [k for k, _ in DRUG_Y.items()]
+
+    if (dataset in drug_y_task) and (dataset in SINGLE_REGRESSION_TASK):
+        drug, y = data['Drug'], data['Y']
+        prompt = DRUG_Y[dataset]
+
+        output = get_regression_prompt(prompt, drug, y)
+
+    elif (dataset in drug_y_task) and (dataset in SINGLE_CLASSIFICATION_TASK):
+        drug, y = data['Drug'], data['Y']
+        prompt = DRUG_Y[dataset]
+        label_dict = CLASSIFICATION_LABEL[dataset]
+
+        output = get_classification_prompt(prompt, drug, y, label_dict=label_dict)
+
+    elif dataset == "herg_central":
+        if subtask in HERG_CENTRAL.keys():
+            drug, y = data['Drug'], data['Y']
+            prompt = HERG_CENTRAL[subtask]
+
+            if subtask == "hERG_inhib": # classification
+                label_dict = CLASSIFICATION_LABEL[subtask]
+                output = get_classification_prompt(prompt, drug, y, label_dict=label_dict)
+            else: # regression
+                output = get_regression_prompt(prompt, drug, y)
+        
+        else:
+            print(f"Subtask \"{subtask}\" in dataset \"{dataset}\" not exist!")
+            return None
+        
     elif dataset == "Tox21":
-        1
-    return
+        if subtask in TOX21.keys():
+            drug, y = data['Drug'], data['Y']
+            prompt = TOX21[subtask]
+            label_dict = CLASSIFICATION_LABEL[subtask]
+
+            output = get_classification_prompt(prompt, drug, y, label_dict=label_dict)
+
+        else:
+            print(f"Subtask \"{subtask}\" in dataset \"{dataset}\" not exist!")
+            return None
+
+    elif dataset == "DrugBank":
+        drug1, drug2, y = data['Drug1'], data['Drug2'], data['Y']
+        prompt_dict = label_index
+        output = get_drugbank_prompt(drug1, drug2, y, prompt_dict)
+
+    elif dataset == "TWOSIDES":
+        drug1, drug2, y = data['Drug1'], data['Drug2'], data['Y']
+        side_effect_dict = label_index
+        prompt = DRUG1_DRUG2_Y[dataset]
+        output = get_twosides_prompt(prompt, drug1, drug2, y, side_effect_dict)
+
+    elif dataset in P_R.keys():
+        product, reactant = data['input'], data['output']
+        prompt = P_R[dataset]
+        output = get_P_R_prompt(prompt, product, reactant)
+
+    else:
+        print(f"Dataset \"{dataset}\" not exist!")
+        return None
+    
+    return output
 
 
+def get_regression_prompt(prompt, Drug, Y):
+    '''
+    Regression Task
+    '''
+    assert len(Drug) == len(Y)
 
-def drug_preprocess(drug):
-    return drug
+    Drug = drug_preprocess(Drug)
 
+    output = [prompt.format(smiles=x, label=y) for x, y in zip(Drug, Y)]
+    return output
 
-def get_classification_prompt(Drug, Y, label_dict=None):
+def get_classification_prompt(prompt, Drug, Y, label_dict=None):
     '''
     Classification Task
     '''
@@ -203,12 +275,69 @@ def get_classification_prompt(Drug, Y, label_dict=None):
     Drug = drug_preprocess(Drug)
     Y = [int(y) for y in Y]
 
-    prompt = ""
-    output = [prompt.format(smiles=x, label=y) for x, y in zip(Drug, Y)]
+    output = [prompt.format(smiles=x, label=label_dict[y]) for x, y in zip(Drug, Y)]
     return output
 
-def get_regression_prompt(Drug, Y, label_dict=None):
-    '''
-    Regression Task
-    '''
-    assert len(Drug) == len(Y)
+def get_drugbank_prompt(Drug1, Drug2, Y, prompt_dict):
+    assert len(Drug1) == len(Y)
+    assert len(Drug2) == len(Y)
+
+    Drug1, Drug2 = drug_preprocess(Drug1), drug_preprocess(Drug2)
+    Y = [int(y) for y in Y]
+
+    output = []
+    for d1, d2, y in zip(Drug1, Drug2, Y):
+        prompt = prompt_dict[y]
+        sent = prompt.replace("#Drug1", d1).replace("#Drug2", d2)
+        output.append(sent)
+    
+    return output
+
+def get_twosides_prompt(prompt, Drug1, Drug2, Y, side_effect_dict):
+    assert len(Drug1) == len(Y)
+    assert len(Drug2) == len(Y)
+
+    Drug1, Drug2 = drug_preprocess(Drug1), drug_preprocess(Drug2)
+    Y = [int(y) for y in Y]
+
+    output = [prompt.format(smiles_1=d1, smiles_2=d2, label=side_effect_dict[y]) for d1, d2, y in zip(Drug1, Drug2, Y)]
+    return output
+
+def get_P_R_prompt(prompt, P, R):
+    assert len(P) == len(R)
+
+    P, R = drug_preprocess(P), drug_preprocess(R)
+
+    output = [prompt.format(product=p, reactant=r) for p, r in zip(P, R)]
+    return output
+
+# def get_tox21_prompt(subtask, Drug, Y, label_dict=None):
+#     '''
+#     Tox21 Task
+#     '''
+#     assert len(Drug) == len(Y)
+    
+#     Drug = drug_preprocess(Drug)
+#     Y = [int(y) for y in Y]
+
+#     prompt = TOX21[subtask]
+#     output = [prompt.format(smiles=x, label=label_dict[y]) for x, y in zip(Drug, Y)]
+#     return output
+
+# def get_herg_central_prompt(subtask, Drug, Y, label_dict=None):
+#     '''
+#     herg_central Task
+#     '''
+#     assert len(Drug) == len(Y)
+    
+#     Drug = drug_preprocess(Drug)
+#     Y = [int(y) for y in Y]
+
+#     prompt = HERG_CENTRAL[subtask]
+#     output = [prompt.format(smiles=x, label=label_dict[y]) for x, y in zip(Drug, Y)]
+#     return output
+
+
+if __name__ == '__main__':
+    print(f"Total single regression task: {len(SINGLE_REGRESSION_TASK)}")
+    print(f"Total single classification task: {len(SINGLE_CLASSIFICATION_TASK)}")

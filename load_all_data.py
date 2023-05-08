@@ -15,8 +15,8 @@ if __name__ == "__main__":
         output = get_outputs_of_dataset(task, "random")
         outputs.extend(output)
     
-    with open(os.path.join(args.output_dir, "all_prompts_v1.txt"), "w", encoding="utf8") as fw:
+    with open(os.path.join(args.output_dir, "all_prompts_v2.jsonl"), "w", encoding="utf8") as fw:
         for output in outputs:
-            print(output, file=fw)
+            fw.write(output + "\n")
 
 

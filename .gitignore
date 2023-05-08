@@ -1,4 +1,4 @@
 __pycache__
 data/
-prompt_data/*.txt
+prompt_data/
 try.py

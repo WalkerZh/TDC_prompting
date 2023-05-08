@@ -7,9 +7,11 @@ This is a repo for building TDC(Therapeutics Data Commons) data prompts.
 ## Usage
 
 ```bash
+# Install necessary packages
+pip install PyTDC # https://github.com/mims-harvard/TDC
+
 git clone https://github.com/WalkerZh/TDC_prompting.git
 cd TDC_prompting
-pip install PyTDC # https://github.com/mims-harvard/TDC
 
 mkdir prompt_data
 

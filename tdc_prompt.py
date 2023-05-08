@@ -1,5 +1,9 @@
 import os
 import re
+import json
+
+# format ref
+# {"text": "We can conclude that the screening result of ability to inhibit HIV replication of <<|mol0|>> is inactive .", "entities": {"<<|mol0|>>": {"smiles": "CCOP(=O)(Nc1cccc(Cl)c1)OCC"}}}
 
 DRUG_Y = {
     "Caco2_Wang": r"The experimental result on the rate of {smiles} passing through the Caco-2 cells is {label}.",
@@ -263,7 +267,14 @@ def get_regression_prompt(prompt, Drug, Y):
 
     Drug = drug_preprocess(Drug)
 
-    output = [prompt.format(smiles=x, label=y) for x, y in zip(Drug, Y)]
+    output = []
+    for x, y in zip(Drug, Y):
+        data_dict = {}
+        data_dict["text"] = prompt.format(smiles="<<|mol0|>>", label=y)
+        data_dict["entities"] = {"<<|mol0|>>": {"smiles": x}}
+        output.append(json.dumps(data_dict))
+
+    # output = [prompt.format(smiles=x, label=y) for x, y in zip(Drug, Y)]
     return output
 
 def get_classification_prompt(prompt, Drug, Y, label_dict=None):
@@ -275,7 +286,14 @@ def get_classification_prompt(prompt, Drug, Y, label_dict=None):
     Drug = drug_preprocess(Drug)
     Y = [int(y) for y in Y]
 
-    output = [prompt.format(smiles=x, label=label_dict[y]) for x, y in zip(Drug, Y)]
+    output = []
+    for x, y in zip(Drug, Y):
+        data_dict = {}
+        data_dict["text"] = prompt.format(smiles="<<|mol0|>>", label=label_dict[y])
+        data_dict["entities"] = {"<<|mol0|>>": {"smiles": x}}
+        output.append(json.dumps(data_dict))
+
+    # output = [prompt.format(smiles=x, label=label_dict[y]) for x, y in zip(Drug, Y)]
     return output
 
 def get_drugbank_prompt(Drug1, Drug2, Y, prompt_dict):
@@ -287,9 +305,11 @@ def get_drugbank_prompt(Drug1, Drug2, Y, prompt_dict):
 
     output = []
     for d1, d2, y in zip(Drug1, Drug2, Y):
+        data_dict = {}
         prompt = prompt_dict[y]
-        sent = prompt.replace("#Drug1", d1).replace("#Drug2", d2)
-        output.append(sent)
+        data_dict["text"] = prompt.replace("#Drug1", "<<|mol0|>>").replace("#Drug2", "<<|mol1|>>")
+        data_dict["entities"] = {"<<|mol0|>>": {"smiles": d1}, "<<|mol1|>>": {"smiles": d2}}
+        output.append(json.dumps(data_dict))
     
     return output
 
@@ -300,7 +320,14 @@ def get_twosides_prompt(prompt, Drug1, Drug2, Y, side_effect_dict):
     Drug1, Drug2 = drug_preprocess(Drug1), drug_preprocess(Drug2)
     Y = [int(y) for y in Y]
 
-    output = [prompt.format(smiles_1=d1, smiles_2=d2, label=side_effect_dict[y]) for d1, d2, y in zip(Drug1, Drug2, Y)]
+    output = []
+    for d1, d2, y in zip(Drug1, Drug2, Y):
+        data_dict = {}
+        data_dict["text"] = prompt.format(smiles_1="<<|mol0|>>", smiles_2="<<|mol1|>>", label=side_effect_dict[y])
+        data_dict["entities"] = {"<<|mol0|>>": {"smiles": d1}, "<<|mol1|>>": {"smiles": d2}}
+        output.append(json.dumps(data_dict))
+    
+    # output = [prompt.format(smiles_1=d1, smiles_2=d2, label=side_effect_dict[y]) for d1, d2, y in zip(Drug1, Drug2, Y)]
     return output
 
 def get_P_R_prompt(prompt, P, R):
@@ -308,7 +335,14 @@ def get_P_R_prompt(prompt, P, R):
 
     P, R = drug_preprocess(P), drug_preprocess(R)
 
-    output = [prompt.format(product=p, reactant=r) for p, r in zip(P, R)]
+    output = []
+    for p, r in zip(P, R):
+        data_dict = {}
+        data_dict["text"] = prompt.format(product="<<|mol0|>>", reactant="<<|mol1|>>")
+        data_dict["entities"] = {"<<|mol0|>>": {"smiles": p}, "<<|mol1|>>": {"smiles": r}}
+        output.append(json.dumps(data_dict))
+
+    # output = [prompt.format(product=p, reactant=r) for p, r in zip(P, R)]
     return output
 
 if __name__ == '__main__':

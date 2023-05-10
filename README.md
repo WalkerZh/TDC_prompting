@@ -38,6 +38,10 @@ TDC covers a wide range of therapeutics tasks with varying data structures. Thus
 - Multi-instance prediction `multi_pred`: Prediction of property given multiple biomedical entities.
 - Generation `generation`: Generation of new biomedical entity.
 
+
+Total sample of 3 class: single(3,174,794), multi(4,841,078), generate(1,107,898)
+
+
 ## Single-instance Prediction Problem
 
 #### ADME
@@ -76,6 +80,7 @@ TDC covers a wide range of therapeutics tasks with varying data structures. Thus
 - LD50_Zhu √
 - hERG √
 - herg_central √
+  - Note:  hERG_inhib is a binary classification. Given a drug SMILES string, predict whether it blocks (1) or not blocks (0). This is **equivalent to whether hERG_at_10uM < -50**, i.e. whether the compound has an IC50 of less than 10µM.
 - hERG_Karim √
 - AMES √
 - DILI √

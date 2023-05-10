@@ -2,7 +2,8 @@ import json
 import os
 import re
 
-from rdkit import Chem # rdkit==2022.9.5
+from rdkit import Chem  # rdkit==2022.9.5
+from tqdm import tqdm
 
 # format ref
 # {"text": "We can conclude that the screening result of ability to inhibit HIV replication of <<|mol0|>> is inactive .", "entities": {"<<|mol0|>>": {"smiles": "CCOP(=O)(Nc1cccc(Cl)c1)OCC"}}}
@@ -346,7 +347,7 @@ def get_twosides_prompt(prompt, Drug1, Drug2, Y, side_effect_dict):
     Y = [int(y) for y in Y]
 
     output = []
-    for d1, d2, y in zip(Drug1, Drug2, Y):
+    for d1, d2, y in tqdm(zip(Drug1, Drug2, Y)):
         d1, d2 = smi_preprocess(d1), smi_preprocess(d2)
         if d1 == None or d2 == None:
             continue

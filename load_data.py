@@ -98,6 +98,8 @@ def get_outputs_of_dataset(dataset, split_method):
     
     else:
         print("Dataset not exist!")
+
+    print(f"Dataset {dataset} total output: {len(outputs)}.")
         
     return outputs
 

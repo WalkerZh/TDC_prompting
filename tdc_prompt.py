@@ -370,8 +370,12 @@ def get_P_R_prompt(prompt, P, R):
         if p == None or r == None:
             continue
         data_dict = {}
-        data_dict["text"] = prompt.format(product="<<|mol0|>>", reactant="<<|mol1|>>")
-        data_dict["entities"] = {"<<|mol0|>>": {"smiles": p}, "<<|mol1|>>": {"smiles": r}}
+        data_dict["text"] = prompt.format(product="<<|mol0|>>", reactant=r)
+        data_dict["entities"] = {"<<|mol0|>>": {"smiles": p}}
+
+        # data_dict["text"] = prompt.format(product=p, reactant="<<|mol0|>>")
+        # data_dict["entities"] = {"<<|mol0|>>": {"smiles": r}}
+
         output.append(json.dumps(data_dict))
 
     # output = [prompt.format(product=p, reactant=r) for p, r in zip(P, R)]

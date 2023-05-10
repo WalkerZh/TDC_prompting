@@ -10,6 +10,7 @@ This is a repo for building TDC(Therapeutics Data Commons) data prompts.
 
 ```bash
 # Install necessary packages
+pip install rdkit==2022.9.5 
 pip install PyTDC # https://github.com/mims-harvard/TDC
 
 # clone the repo

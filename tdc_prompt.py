@@ -1,6 +1,8 @@
+import json
 import os
 import re
-import json
+
+from rdkit import Chem # rdkit==2022.9.5
 
 # format ref
 # {"text": "We can conclude that the screening result of ability to inhibit HIV replication of <<|mol0|>> is inactive .", "entities": {"<<|mol0|>>": {"smiles": "CCOP(=O)(Nc1cccc(Cl)c1)OCC"}}}
@@ -187,6 +189,17 @@ def smi_preprocess(smi):
     '''
     single smiles
     '''
+    mol = Chem.MolFromSmiles(smi)
+    if mol is None:
+        return None
+    
+    for atom in mol.GetAtoms():
+        atom.SetAtomMapNum(0)
+    
+    smi = Chem.MolToSmiles(mol)
+    if smi is None:
+        return None
+
     return smi
 
 def task_hub(dataset, data, subtask=None, label_index=None):
@@ -269,6 +282,10 @@ def get_regression_prompt(prompt, Drug, Y):
 
     output = []
     for x, y in zip(Drug, Y):
+        x = smi_preprocess(x)
+        if x == None:
+            continue
+
         data_dict = {}
         data_dict["text"] = prompt.format(smiles="<<|mol0|>>", label=y)
         data_dict["entities"] = {"<<|mol0|>>": {"smiles": x}}
@@ -288,6 +305,10 @@ def get_classification_prompt(prompt, Drug, Y, label_dict=None):
 
     output = []
     for x, y in zip(Drug, Y):
+        x = smi_preprocess(x)
+        if x == None:
+            continue
+        
         data_dict = {}
         data_dict["text"] = prompt.format(smiles="<<|mol0|>>", label=label_dict[y])
         data_dict["entities"] = {"<<|mol0|>>": {"smiles": x}}
@@ -305,6 +326,10 @@ def get_drugbank_prompt(Drug1, Drug2, Y, prompt_dict):
 
     output = []
     for d1, d2, y in zip(Drug1, Drug2, Y):
+        d1, d2 = smi_preprocess(d1), smi_preprocess(d2)
+        if d1 == None or d2 == None:
+            continue
+
         data_dict = {}
         prompt = prompt_dict[y]
         data_dict["text"] = prompt.replace("#Drug1", "<<|mol0|>>").replace("#Drug2", "<<|mol1|>>")
@@ -322,6 +347,10 @@ def get_twosides_prompt(prompt, Drug1, Drug2, Y, side_effect_dict):
 
     output = []
     for d1, d2, y in zip(Drug1, Drug2, Y):
+        d1, d2 = smi_preprocess(d1), smi_preprocess(d2)
+        if d1 == None or d2 == None:
+            continue
+
         data_dict = {}
         data_dict["text"] = prompt.format(smiles_1="<<|mol0|>>", smiles_2="<<|mol1|>>", label=side_effect_dict[y])
         data_dict["entities"] = {"<<|mol0|>>": {"smiles": d1}, "<<|mol1|>>": {"smiles": d2}}
@@ -337,6 +366,9 @@ def get_P_R_prompt(prompt, P, R):
 
     output = []
     for p, r in zip(P, R):
+        p, r = smi_preprocess(p), smi_preprocess(r)
+        if p == None or r == None:
+            continue
         data_dict = {}
         data_dict["text"] = prompt.format(product="<<|mol0|>>", reactant="<<|mol1|>>")
         data_dict["entities"] = {"<<|mol0|>>": {"smiles": p}, "<<|mol1|>>": {"smiles": r}}

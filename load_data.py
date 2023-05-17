@@ -1,4 +1,5 @@
 import argparse
+import pandas as pd
 
 from tdc_prompt import task_hub
 
@@ -36,15 +37,20 @@ def output_file(dataset, outputs):
     return
 
 def get_all_output(dataset, split, subtask=None, label_index=None):
-    splits = ["train", "valid", "test"]
-    ret = []
-    for ss in splits:
-        part_data = split[ss]
-        outputs = task_hub(dataset, part_data, subtask=subtask, label_index=label_index)
-        # for output in outputs[:2]:
-        #     print(output)
-        ret.extend(outputs)
-    return ret
+    # splits = ["train", "valid", "test"]
+    # ret = []
+    
+    # for ss in splits:
+        # part_data = split[ss]
+        # outputs = task_hub(dataset, part_data, subtask=subtask, label_index=label_index)
+        # # for output in outputs[:2]:
+        # #     print(output)
+        # ret.extend(outputs)
+    all_data = pd.concat([split['train'], split['valid'], split['test']], ignore_index=True)
+    assert len(all_data) == len(split['train']) + len(split['valid']) + len(split['test'])
+    
+    outputs = task_hub(dataset, all_data, subtask=subtask, label_index=label_index)
+    return outputs
 
 def get_outputs_of_dataset(dataset, split_method):
     if dataset in SINGLE_ADME_TASK:

@@ -38,9 +38,7 @@ TDC covers a wide range of therapeutics tasks with varying data structures. Thus
 - Multi-instance prediction `multi_pred`: Prediction of property given multiple biomedical entities.
 - Generation `generation`: Generation of new biomedical entity.
 
-
 Total sample of 3 class: single(3,174,794), multi(4,841,078), generate(1,107,898)
-
 
 ## Single-instance Prediction Problem
 
@@ -118,7 +116,7 @@ Total sample of 3 class: single(3,174,794), multi(4,841,078), generate(1,107,898
 #### DDI
 
 - DrugBank √
-- TWOSIDES √
+- TWOSIDES √(63473 pairs)
   - **Note**: Some side-effects may be a verb (e.g. agitated), making the prompt not clear or not correct
 
 ## Generation Problem

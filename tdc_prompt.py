@@ -81,7 +81,8 @@ QM8 = {}
 QM9 = {}
 
 DRUG1_DRUG2_Y = {
-    "TWOSIDES": r"The concurrent use of {smiles_1} and {smiles_2} can cause {label}, which is one of the polypharmacy side-effects.",
+    "TWOSIDES": r"The concurrent use of {smiles_1} and {smiles_2} can cause many polypharmacy side-effects, including {label}.",
+    # "TWOSIDES": r"The concurrent use of {smiles_1} and {smiles_2} can cause {label}, which is one of the polypharmacy side-effects.",
 } # "DrugBank"
 
 # R_C_P_L = {
@@ -346,14 +347,33 @@ def get_twosides_prompt(prompt, Drug1, Drug2, Y, side_effect_dict):
     Drug1, Drug2 = drug_preprocess(Drug1), drug_preprocess(Drug2)
     Y = [int(y) for y in Y]
 
+    drugpair_effect = {}
+    for d1, d2, y in zip(Drug1, Drug2, Y):
+        drug_pair1 = (d1, d2)
+        drug_pair2 = (d2, d1)
+        if drug_pair1 in drugpair_effect.keys():
+            drugpair_effect[drug_pair1].append(y)
+        elif drug_pair2 in drugpair_effect.keys():
+            drugpair_effect[drug_pair2].append(y)
+        else:
+            drugpair_effect[drug_pair1] = [y]
+    # print(len(drugpair_effect))
+    
     output = []
-    for d1, d2, y in tqdm(zip(Drug1, Drug2, Y)):
+    for drug_pair, y in tqdm(drugpair_effect.items()):
+        d1, d2 = drug_pair[0], drug_pair[1]
         d1, d2 = smi_preprocess(d1), smi_preprocess(d2)
         if d1 == None or d2 == None:
             continue
+        
+        if len(y) == 1:
+            side_effects = side_effect_dict[y[0]]
+        else:
+            side_effects = ", ".join([side_effect_dict[yy] for yy in y[:-1]]) + " and " + side_effect_dict[y[-1]]
+        # side_effects = ", ".join([side_effect_dict[yy] for yy in y])
 
         data_dict = {}
-        data_dict["text"] = prompt.format(smiles_1="<<|mol0|>>", smiles_2="<<|mol1|>>", label=side_effect_dict[y])
+        data_dict["text"] = prompt.format(smiles_1="<<|mol0|>>", smiles_2="<<|mol1|>>", label=side_effects)
         data_dict["entities"] = {"<<|mol0|>>": {"smiles": d1}, "<<|mol1|>>": {"smiles": d2}}
         output.append(json.dumps(data_dict))
     

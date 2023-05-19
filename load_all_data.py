@@ -25,6 +25,9 @@ if __name__ == "__main__":
 
     outputs = []
     for task in task_dict[args.task_class]:
+        if task == "herg_central":
+            print(f"Dataset {task} passed.")
+            continue
         if task in molnet_task:
             print(f"Dataset {task} ignored because it's in MoleculeNet.")
             continue

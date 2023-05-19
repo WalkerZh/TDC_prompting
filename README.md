@@ -44,14 +44,14 @@ TDC covers a wide range of therapeutics tasks with varying data structures. Thus
 
 ###### Single-instance
 
-classification: 2,410,684 can be obtained by `python load_all_data.py --task-class classification`
+classification: 2,103,791 can be obtained by `python load_all_data.py --task-class classification`
 
-* ADME & TOX: 398,700 `python load_all_data.py --task-class classification_ADME_TOX`
+* ADME & TOX: 91,807 `python load_all_data.py --task-class classification_ADME_TOX`
 * HTS: 2,011,984 ``python load_all_data.py --task-class classification_HTS``
 
-regression: 641,529(613,786 from herg_central) (`<<reg_num_wei>>6.54321<<reg_num_wei>>`) can be obtained by `python load_all_data.py --task-class regression`
+regression: 27,743 (613,786 from herg_central is passed) (`<<reg_num_wei>>6.54321<<reg_num_wei>>`) can be obtained by `python load_all_data.py --task-class regression`
 
-###### Multi-instance 
+###### Multi-instance
 
 DDI: 255,110 (191637+63473) can be obtained by `python load_all_data.py --task-class multi`
 

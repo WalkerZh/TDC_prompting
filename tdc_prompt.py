@@ -9,17 +9,18 @@ from tqdm import tqdm
 # {"text": "We can conclude that the screening result of ability to inhibit HIV replication of <<|mol0|>> is inactive .", "entities": {"<<|mol0|>>": {"smiles": "CCOP(=O)(Nc1cccc(Cl)c1)OCC"}}}
 
 DRUG_Y = {
-    "Caco2_Wang": r"The experimental result on the rate of {smiles} passing through the Caco-2 cells is {label}.",
+    "Caco2_Wang": r"The experimental result on the rate of {smiles} passing through the Caco-2 cells is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression log cm/s
     "PAMPA_NCATS": r"The compound {smiles} has {label} permeability in parallel artificial membrane permeability assay(PAMPA assay).",
     "HIA_Hou": r"The HIA(Human Intestinal Absorption) activity of {smiles} is {label}.",
     "Pgp_Broccatelli": r"The compound {smiles} is {label} in inhibiting P-glycoprotein(Pgp).",
     "Bioavailability_Ma": r"The oral bioavailability activity of {smiles} is {label}.",
-    "Lipophilicity_AstraZeneca": r"The ability of {smiles} to dissolve in a lipid (e.g. fats, oils) environment is {label}.", # units?
-    "Solubility_AqSolDB": r"The ability of {smiles} to dissolve in water is {label}.", # units?
-    "HydrationFreeEnergy_FreeSolv": r"The experimental and calculated hydration free energy of {smiles} in water is {label}.", # units?
+    "Lipophilicity_AstraZeneca": r"The ability of {smiles} to dissolve in a lipid (e.g. fats, oils) environment is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units? # experimental results of octanol/water distribution coefficient (logD at pH 7.4)
+    "Solubility_AqSolDB": r"The log solubility of {smiles} in water is <<reg_num_wei>>{label}<<reg_num_wei>> in mols per litre.", # regression # units: log solubility in mols per litre
+    # "Solubility_AqSolDB": r"The ability of {smiles} to dissolve in water is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units? # measured log solubility in mols per litre
+    "HydrationFreeEnergy_FreeSolv": r"The log hydration free energy of {smiles} in water is <<reg_num_wei>>{label}<<reg_num_wei>> in kcals per mol.", # regression # units? # kcal/mol
     "BBB_Martins": r"The ability of {smiles} to penetrate the Blood-Brain Barrier(BBB) is {label}.",
-    "PPBR_AZ": r"The percentage of {smiles} bound to plasma proteins in the blood, i.e. its human plasma protein binding rate (PPBR) is {label}.", # improve?
-    "VDss_Lombardo": r"The volume of distribution at steady state (VDss) of {smiles}, i.e. the degree of its concentration in body tissue compared to concentration in blood is {label}.", # improve
+    "PPBR_AZ": r"The percentage of {smiles} bound to plasma proteins in the blood, i.e. its human plasma protein binding rate (PPBR) is <<reg_num_wei>>{label}<<reg_num_wei>>%.", # regression # units %
+    "VDss_Lombardo": r"The volume of distribution at steady state (VDss) of {smiles}, i.e. the degree of its concentration in body tissue compared to concentration in blood is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units? # improve
     "CYP2C19_Veith": r"The compound {smiles} is {label} in inhibiting the CYP2C19 gene, which provides instructions for making an enzyme called the endoplasmic reticulum.",
     "CYP2D6_Veith": r"The compound {smiles} is {label} in inhibiting the CYP2D6, which is primarily expressed in the liver.",
     "CYP3A4_Veith": r"The compound {smiles} is {label} in inhibiting the CYP3A4, which is an important enzyme that oxidizes small foreign organic molecules in the body.",
@@ -28,10 +29,10 @@ DRUG_Y = {
     "CYP2C9_Substrate_CarbonMangels": r"The compound {smiles} {label} a substrate to the CYP2C9 enzyme.",
     "CYP2D6_Substrate_CarbonMangels": r"The compound {smiles} {label} a substrate to the CYP2D6 enzyme.",
     "CYP3A4_Substrate_CarbonMangels": r"The compound {smiles} {label} a substrate to the CYP3A4 enzyme.",
-    "Half_Life_Obach": r"The half life duration of {smiles} is {label} hours.",
-    "Clearance_Hepatocyte_AZ": r"The volume of plasma cleared of {smiles} over a specified time period, i.e. its drug clearance is {label}.", # units?
+    "Half_Life_Obach": r"The half life duration of {smiles} is <<reg_num_wei>>{label}<<reg_num_wei>> hours.", # regression # units hours
+    "Clearance_Hepatocyte_AZ": r"The volume of plasma cleared of {smiles} over a specified time period, i.e. its drug clearance is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
     # ------ ADME
-    "LD50_Zhu": r"The acute toxicity of {smiles}, i.e. its most conservative dose that can lead to lethal adverse effects is {label}.", # units?
+    "LD50_Zhu": r"The acute toxicity of {smiles}, i.e. its most conservative dose that can lead to lethal adverse effects is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
     "hERG": r"The compound {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.", # the type of Y is 'float' although it's a classification task
     "hERG_Karim": r"The compound {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.",
     "AMES": r"Mutagenicity means the ability of a drug to induce genetic alterations, the compound {smiles} {label} mutagenic.",
@@ -56,8 +57,8 @@ DRUG_Y = {
 }
 
 HERG_CENTRAL = { # DRUG_Y format
-    "hERG_at_1uM": r"The percent inhibition of {smiles} to the Human ether-à-go-go related gene(hERG) at a 1µM concentration is {label}.", # units?
-    "hERG_at_10uM": r"The percent inhibition of {smiles} to the Human ether-à-go-go related gene(hERG) at a 10µM concentration is {label}.", # units?
+    "hERG_at_1uM": r"The percent inhibition of {smiles} to the Human ether-à-go-go related gene(hERG) at a 1µM concentration is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
+    "hERG_at_10uM": r"The percent inhibition of {smiles} to the Human ether-à-go-go related gene(hERG) at a 10µM concentration is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
     "hERG_inhib": r"The compound {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.", # whether hERG_at_10uM < -50, i.e. whether the compound has an IC50 of less than 10µM.
 }
 

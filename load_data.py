@@ -24,8 +24,40 @@ SINGLE_HTS_TASK = ["SARSCoV2_Vitro_Touret", "SARSCoV2_3CLPro_Diamond", "HIV",
                    "choline_transporter_butkiewicz", "serine_threonine_kinase_33_butkiewicz", "tyrosyl-dna_phosphodiesterase_butkiewicz",
                    # ----- Classification
                    ]
+CLASSIFICATION_TASK = ["PAMPA_NCATS", "HIA_Hou", "Pgp_Broccatelli", "Bioavailability_Ma", "BBB_Martins",
+                    "CYP2C19_Veith", "CYP2D6_Veith", "CYP3A4_Veith", "CYP1A2_Veith", "CYP2C9_Veith",
+                    "CYP2C9_Substrate_CarbonMangels", "CYP2D6_Substrate_CarbonMangels", "CYP3A4_Substrate_CarbonMangels",
+
+                    "hERG", "hERG_Karim", "AMES", "DILI", "Skin Reaction", "Carcinogens_Lagunin", "ClinTox",
+                    "herg_central", "Tox21",
+
+                    "SARSCoV2_Vitro_Touret", "SARSCoV2_3CLPro_Diamond", "HIV", 
+                    "orexin1_receptor_butkiewicz", "m1_muscarinic_receptor_agonists_butkiewicz", "m1_muscarinic_receptor_antagonists_butkiewicz",
+                    "potassium_ion_channel_kir2", "kcnq2_potassium_channel_butkiewicz", "cav3_t-type_calcium_channels_butkiewicz",
+                    "choline_transporter_butkiewicz", "serine_threonine_kinase_33_butkiewicz", "tyrosyl-dna_phosphodiesterase_butkiewicz",
+                    ]
+CLASSIFICATION_ADME_TOX_TASK = ["PAMPA_NCATS", "HIA_Hou", "Pgp_Broccatelli", "Bioavailability_Ma", "BBB_Martins",
+                    "CYP2C19_Veith", "CYP2D6_Veith", "CYP3A4_Veith", "CYP1A2_Veith", "CYP2C9_Veith",
+                    "CYP2C9_Substrate_CarbonMangels", "CYP2D6_Substrate_CarbonMangels", "CYP3A4_Substrate_CarbonMangels",
+
+                    "hERG", "hERG_Karim", "AMES", "DILI", "Skin Reaction", "Carcinogens_Lagunin", "ClinTox",
+                    "herg_central", "Tox21",
+                    ]
+CLASSIFICATION_HTS_TASK = ["SARSCoV2_Vitro_Touret", "SARSCoV2_3CLPro_Diamond", "HIV", 
+                    "orexin1_receptor_butkiewicz", "m1_muscarinic_receptor_agonists_butkiewicz", "m1_muscarinic_receptor_antagonists_butkiewicz",
+                    "potassium_ion_channel_kir2", "kcnq2_potassium_channel_butkiewicz", "cav3_t-type_calcium_channels_butkiewicz",
+                    "choline_transporter_butkiewicz", "serine_threonine_kinase_33_butkiewicz", "tyrosyl-dna_phosphodiesterase_butkiewicz",
+                    ]
+REGRESSION_TASK = ["Caco2_Wang", "Lipophilicity_AstraZeneca", "Solubility_AqSolDB",
+                "HydrationFreeEnergy_FreeSolv", "PPBR_AZ", "VDss_Lombardo", "Half_Life_Obach", "Clearance_Hepatocyte_AZ",
+
+                "LD50_Zhu", "herg_central",
+                ]
+
 MULTI_DDI_TASK = ["DrugBank", "TWOSIDES"]
 GENERATE_RETROSYN_TASK = ["USPTO"] # "USPTO-50K"
+
+MOLECULENET_TASK = ["BBB_Martins", "ClinTox", "Tox21", "HIV"] # Bace / Sider
 
 SINGLE_TASK = SINGLE_ADME_TASK + SINGLE_TOX_TASK + SINGLE_HTS_TASK
 ALL_TASK = SINGLE_ADME_TASK + SINGLE_TOX_TASK + SINGLE_HTS_TASK + MULTI_DDI_TASK + GENERATE_RETROSYN_TASK
@@ -52,7 +84,7 @@ def get_all_output(dataset, split, subtask=None, label_index=None):
     outputs = task_hub(dataset, all_data, subtask=subtask, label_index=label_index)
     return outputs
 
-def get_outputs_of_dataset(dataset, split_method):
+def get_outputs_of_dataset(dataset, split_method, reg=1):
     if dataset in SINGLE_ADME_TASK:
         from tdc.single_pred import ADME
         data = ADME(name=dataset)
@@ -61,7 +93,7 @@ def get_outputs_of_dataset(dataset, split_method):
         outputs = get_all_output(dataset, split)
 
     elif dataset in SINGLE_TOX_TASK:
-        if dataset in ["herg_central", "Tox21"]:
+        if dataset == "Tox21":
             from tdc.utils import retrieve_label_name_list
             label_list = retrieve_label_name_list(dataset)
             outputs = []
@@ -71,6 +103,23 @@ def get_outputs_of_dataset(dataset, split_method):
                 split = data.get_split(method=split_method)
                 output = get_all_output(dataset, split, subtask=l)
                 outputs.extend(output)
+        elif dataset == "herg_central":
+            from tdc.utils import retrieve_label_name_list
+            label_list = retrieve_label_name_list(dataset)
+            outputs = []
+            if reg == 0: # classification task
+                from tdc.single_pred import Tox
+                data = Tox(name=dataset, label_name=label_list[2])
+                split = data.get_split(method=split_method)
+                output = get_all_output(dataset, split, subtask=label_list[2])
+                outputs.extend(output)
+            else: # reg = 1 => regression task
+                for l in label_list[:-1]:
+                    from tdc.single_pred import Tox
+                    data = Tox(name=dataset, label_name=l)
+                    split = data.get_split(method=split_method)
+                    output = get_all_output(dataset, split, subtask=l)
+                    outputs.extend(output)
 
         else:
             from tdc.single_pred import Tox
@@ -106,7 +155,7 @@ def get_outputs_of_dataset(dataset, split_method):
     else:
         print("Dataset not exist!")
 
-    print(f"Dataset {dataset} total output: {len(outputs)}.")
+    # print(f"Dataset {dataset} total output: {len(outputs)}.")
         
     return outputs
 
@@ -123,6 +172,7 @@ if __name__ == "__main__":
     
     outputs = get_outputs_of_dataset(dataset, args.split)
 
+    print(f"Total examples of dataset \"{dataset}\": {len(outputs)}")
     print(f"Some examples of dataset \"{dataset}\":")
     for output in outputs[:3]:
         print(output)

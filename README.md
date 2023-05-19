@@ -38,22 +38,41 @@ TDC covers a wide range of therapeutics tasks with varying data structures. Thus
 - Multi-instance prediction `multi_pred`: Prediction of property given multiple biomedical entities.
 - Generation `generation`: Generation of new biomedical entity.
 
-Total sample of 3 class: single(3,174,794), multi(4,841,078), generate(1,107,898)
+~~Total sample of 3 class: single(3,174,794), multi(255,000), generate(1,107,898)~~
+
+#### Dataset_v3
+
+###### Single-instance
+
+classification: 2,410,684 can be obtained by `python load_all_data.py --task-class classification`
+
+* ADME & TOX: 398,700 `python load_all_data.py --task-class classification_ADME_TOX`
+* HTS: 2,011,984 ``python load_all_data.py --task-class classification_HTS``
+
+regression: 641,529(613,786 from herg_central) (`<<reg_num_wei>>6.54321<<reg_num_wei>>`) can be obtained by `python load_all_data.py --task-class regression`
+
+###### Multi-instance 
+
+DDI: 255,110 (191637+63473) can be obtained by `python load_all_data.py --task-class multi`
+
+###### Generation
+
+retrosyn: 1,107,898 can be obtained by `python load_all_data.py --task-class generate`
 
 ## Single-instance Prediction Problem
 
 #### ADME
 
-- Caco2_Wang √
-- PAMPA_NCATS √
-- HIA_Hou √
-- Pgp_Broccatelli √
-- Bioavailability_Ma √
-- Lipophilicity_AstraZeneca √
-- Solubility_AqSolDB √
-- HydrationFreeEnergy_FreeSolv √
-- BBB_Martins √
-- PPBR_AZ √
+- Caco2_Wang √ regression
+- PAMPA_NCATS √ 2034 classification
+- HIA_Hou √ 578 classification
+- Pgp_Broccatelli √ 1218 classification
+- Bioavailability_Ma √ 640 classification
+- Lipophilicity_AstraZeneca √ regression
+- Solubility_AqSolDB √ regression
+- HydrationFreeEnergy_FreeSolv √ regression
+- BBB_Martins × MoleculeNet
+- PPBR_AZ √ regression
 
   **Note** : [Started from 0.3.7] this dataset contains assay across five species. Across species, the PPBR would behave rather differently even for the same drug. Thus, in default, it only returns the homo sapiens subset. If you would like to retrieve other species, you can use the following code:
 
@@ -61,47 +80,47 @@ Total sample of 3 class: single(3,174,794), multi(4,841,078), generate(1,107,898
   data.get_other_species('Rattus norvegicus')
   # select from 'Canis lupus familiaris', 'Cavia porcellus', 'Homo sapiens', 'Mus musculus', 'Rattus norvegicus', 'all'
   ```
-- VDss_Lombardo √
-- CYP2C19_Veith √
-- CYP2D6_Veith √
-- CYP3A4_Veith √
-- CYP1A2_Veith √
-- CYP2C9_Veith √
-- CYP2C9_Substrate_CarbonMangels √
-- CYP2D6_Substrate_CarbonMangels √
-- CYP3A4_Substrate_CarbonMangels √
-- Half_Life_Obach √
-- Clearance_Hepatocyte_AZ √
+- VDss_Lombardo √ regression
+- CYP2C19_Veith √ 12665 classification
+- CYP2D6_Veith √ 13130 classification
+- CYP3A4_Veith √ 12328 classification
+- CYP1A2_Veith √ 12579 classification
+- CYP2C9_Veith √ 12092 classification
+- CYP2C9_Substrate_CarbonMangels √ 669 classification
+- CYP2D6_Substrate_CarbonMangels √ 667 classification
+- CYP3A4_Substrate_CarbonMangels √ 670 classification
+- Half_Life_Obach √ regression
+- Clearance_Hepatocyte_AZ √ regression
 
 #### Tox
 
-- LD50_Zhu √
-- hERG √
-- herg_central √
+- LD50_Zhu √ regression
+- hERG √ 655 classification
+- herg_central √ classification & regression
   - Note:  hERG_inhib is a binary classification. Given a drug SMILES string, predict whether it blocks (1) or not blocks (0). This is **equivalent to whether hERG_at_10uM < -50**, i.e. whether the compound has an IC50 of less than 10µM.
-- hERG_Karim √
-- AMES √
-- DILI √
-- Skin_Reaction √
-- Carcinogens_Lagunin √
-- Tox21 √
-- Toxcast ×
-- Clintox √
+- hERG_Karim √ 13445 classification
+- AMES √ 7278 classification
+- DILI √ 475 classification
+- Skin_Reaction √ 404 classification
+- Carcinogens_Lagunin √ 280 classification
+- Tox21 × MoleculeNet
+- Toxcast × MoleculeNet
+- Clintox × MoleculeNet
 
 #### HTS
 
-- SARSCoV2_Vitro_Touret √
-- SARSCoV2_3CLPro_Diamond √
-- HIV √
-- orexin1_receptor_butkiewicz √
-- m1_muscarinic_receptor_agonists_butkiewicz √
-- m1_muscarinic_receptor_antagonists_butkiewicz √
-- potassium_ion_channel_kir2 √
-- kcnq2_potassium_channel_butkiewicz √
-- cav3_t-type_calcium_channels_butkiewicz √
-- choline_transporter_butkiewicz √
-- serine_threonine_kinase_33_butkiewicz √
-- tyrosyl-dna_phosphodiesterase_butkiewicz √
+- SARSCoV2_Vitro_Touret √ 1484 classification
+- SARSCoV2_3CLPro_Diamond √ 880 classification
+- HIV × MoleculeNet
+- orexin1_receptor_butkiewicz √ 61829 classification
+- m1_muscarinic_receptor_agonists_butkiewicz √ 61752 classification
+- m1_muscarinic_receptor_antagonists_butkiewicz √ 61752 classification
+- potassium_ion_channel_kir2 √ 301431 classification
+- kcnq2_potassium_channel_butkiewicz √ 302343 classification
+- cav3_t-type_calcium_channels_butkiewicz √ 100863 classification
+- choline_transporter_butkiewicz √ 302242 classification
+- serine_threonine_kinase_33_butkiewicz √ 319727 classification
+- tyrosyl-dna_phosphodiesterase_butkiewicz √ 341324 classification
 
 #### QM
 
@@ -115,8 +134,8 @@ Total sample of 3 class: single(3,174,794), multi(4,841,078), generate(1,107,898
 
 #### DDI
 
-- DrugBank √
-- TWOSIDES √(63473 pairs)
+- DrugBank √(191,637)
+- TWOSIDES √(63,473 pairs)
   - **Note**: Some side-effects may be a verb (e.g. agitated), making the prompt not clear or not correct
 
 ## Generation Problem

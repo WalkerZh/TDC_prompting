@@ -63,18 +63,18 @@ HERG_CENTRAL = { # DRUG_Y format
 }
 
 TOX21 = { # DRUG_Y format
-    "NR-AR": r"The drug {smiles} {label} activate the Androgen Receptor(AR).",
-    "NR-AR-LBD": r"The drug {smiles} {label} activate the Androgen Receptor Ligand Binding Domain(AR-LBD).",
-    "NR-AhR": r"The drug {smiles} {label} activate the aryl hydrocarbon Receptor(AhR).",
-    "NR-Aromatase": r"The drug {smiles} {label} activate the aromatase.",
-    "NR-ER": r"The drug {smiles} {label} activate the Estrogen Receptor(ER).",
-    "NR-ER-LBD": r"The drug {smiles} {label} activate the Estrogen Receptor Ligand Binding Domain(ER-LBD).",
-    "NR-PPAR-gamma": r"The drug {smiles} {label} activate the peroxisome proliferator-activated receptor gamma(PPAR-gamma).",
-    "SR-ARE": r"The drug {smiles} {label} activate the Antioxidant Response Element(ARE).",
-    "SR-ATAD5": r"The drug {smiles} {label} activate the ATPase family AAA domain-containing protein 5(ATAD5).",
-    "SR-HSE": r"The drug {smiles} {label} activate the Heat Shock Response Element(HSE).",
-    "SR-MMP": r"The drug {smiles} {label} activate the Matrix Metalloproteinase(MMP).",
-    "SR-p53": r"The drug {smiles} {label} activate the tumor protein p53.",
+    "NR-AR": r"The compound {smiles} {label} activate the Androgen Receptor(AR).",
+    "NR-AR-LBD": r"The compound {smiles} {label} activate the Androgen Receptor Ligand Binding Domain(AR-LBD).",
+    "NR-AhR": r"The compound {smiles} {label} activate the aryl hydrocarbon Receptor(AhR).",
+    "NR-Aromatase": r"The compound {smiles} {label} activate the aromatase.",
+    "NR-ER": r"The compound {smiles} {label} activate the Estrogen Receptor(ER).",
+    "NR-ER-LBD": r"The compound {smiles} {label} activate the Estrogen Receptor Ligand Binding Domain(ER-LBD).",
+    "NR-PPAR-gamma": r"The compound {smiles} {label} activate the peroxisome proliferator-activated receptor gamma(PPAR-gamma).",
+    "SR-ARE": r"The compound {smiles} {label} activate the Antioxidant Response Element(ARE).",
+    "SR-ATAD5": r"The compound {smiles} {label} activate the ATPase family AAA domain-containing protein 5(ATAD5).",
+    "SR-HSE": r"The compound {smiles} {label} activate the Heat Shock Response Element(HSE).",
+    "SR-MMP": r"The compound {smiles} {label} activate the Matrix Metalloproteinase(MMP).",
+    "SR-p53": r"The compound {smiles} {label} activate the tumor protein p53.",
 }
 
 QM7B = {}

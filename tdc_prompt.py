@@ -10,9 +10,9 @@ from tqdm import tqdm
 
 DRUG_Y = {
     "Caco2_Wang": r"The experimental result on the rate of {smiles} passing through the Caco-2 cells is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression log cm/s
-    "PAMPA_NCATS": r"The compound {smiles} has {label} permeability in parallel artificial membrane permeability assay(PAMPA assay).",
+    "PAMPA_NCATS": r"In parallel artificial membrane permeability assay(PAMPA assay), the permeability of compound {smiles} is {label}.",
     "HIA_Hou": r"The HIA(Human Intestinal Absorption) activity of {smiles} is {label}.",
-    "Pgp_Broccatelli": r"The drug {smiles} is {label} in inhibiting P-glycoprotein(Pgp).",
+    "Pgp_Broccatelli": r"The activity of drug {smiles} in inhibiting P-glycoprotein(Pgp) is {label}.",
     "Bioavailability_Ma": r"The oral bioavailability activity of {smiles} is {label}.",
     "Lipophilicity_AstraZeneca": r"The ability of {smiles} to dissolve in a lipid (e.g. fats, oils) environment is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units? # experimental results of octanol/water distribution coefficient (logD at pH 7.4)
     "Solubility_AqSolDB": r"The log solubility of {smiles} in water is <<reg_num_wei>>{label}<<reg_num_wei>> in mols per litre.", # regression # units: log solubility in mols per litre

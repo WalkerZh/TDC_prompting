@@ -43,8 +43,8 @@ if __name__ == "__main__":
     # output_dir = os.path.join(args.output_dir, args.task_class)
     # if not os.path.exists(output_dir):
     #     os.makedirs(output_dir)
-
-    with open(os.path.join(args.output_dir, f"{args.task_class}_prompts_v3.jsonl"), "w", encoding="utf8") as fw:
+    temp = "instructions" if args.instruction_format else "prompts"
+    with open(os.path.join(args.output_dir, f"{args.task_class}_{temp}_v3.jsonl"), "w", encoding="utf8") as fw:
         for output in outputs:
             fw.write(output + "\n")
 

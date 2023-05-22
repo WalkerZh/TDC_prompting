@@ -1,6 +1,8 @@
 import argparse
-import pandas as pd
+import json
 
+import pandas as pd
+from instruction_prompt import instruction_task_hub
 from tdc_prompt import task_hub
 
 SINGLE_ADME_TASK = ["Caco2_Wang", "Lipophilicity_AstraZeneca", "Solubility_AqSolDB",
@@ -68,7 +70,7 @@ def output_file(dataset, outputs):
     '''
     return
 
-def get_all_output(dataset, split, subtask=None, label_index=None):
+def get_all_output(dataset, split, instruction_format=False, subtask=None, label_index=None):
     # splits = ["train", "valid", "test"]
     # ret = []
     
@@ -80,17 +82,19 @@ def get_all_output(dataset, split, subtask=None, label_index=None):
         # ret.extend(outputs)
     all_data = pd.concat([split['train'], split['valid'], split['test']], ignore_index=True)
     assert len(all_data) == len(split['train']) + len(split['valid']) + len(split['test'])
-    
-    outputs = task_hub(dataset, all_data, subtask=subtask, label_index=label_index)
+    if instruction_format:
+        outputs = instruction_task_hub(dataset, all_data, subtask=subtask, label_index=label_index)
+    else:
+        outputs = task_hub(dataset, all_data, subtask=subtask, label_index=label_index)
     return outputs
 
-def get_outputs_of_dataset(dataset, split_method, reg=1):
+def get_outputs_of_dataset(dataset, split_method, instruction_format=False, reg=1):
     if dataset in SINGLE_ADME_TASK:
         from tdc.single_pred import ADME
         data = ADME(name=dataset)
         split = data.get_split(method=split_method)
         # all_data = data.get_data()
-        outputs = get_all_output(dataset, split)
+        outputs = get_all_output(dataset, split, instruction_format=instruction_format)
 
     elif dataset in SINGLE_TOX_TASK:
         if dataset == "Tox21":
@@ -101,7 +105,7 @@ def get_outputs_of_dataset(dataset, split_method, reg=1):
                 from tdc.single_pred import Tox
                 data = Tox(name=dataset, label_name=l)
                 split = data.get_split(method=split_method)
-                output = get_all_output(dataset, split, subtask=l)
+                output = get_all_output(dataset, split, instruction_format=instruction_format, subtask=l)
                 outputs.extend(output)
         elif dataset == "herg_central":
             from tdc.utils import retrieve_label_name_list
@@ -111,27 +115,27 @@ def get_outputs_of_dataset(dataset, split_method, reg=1):
                 from tdc.single_pred import Tox
                 data = Tox(name=dataset, label_name=label_list[2])
                 split = data.get_split(method=split_method)
-                output = get_all_output(dataset, split, subtask=label_list[2])
+                output = get_all_output(dataset, split, instruction_format=instruction_format, subtask=label_list[2])
                 outputs.extend(output)
             else: # reg = 1 => regression task
                 for l in label_list[:-1]:
                     from tdc.single_pred import Tox
                     data = Tox(name=dataset, label_name=l)
                     split = data.get_split(method=split_method)
-                    output = get_all_output(dataset, split, subtask=l)
+                    output = get_all_output(dataset, split, instruction_format=instruction_format, subtask=l)
                     outputs.extend(output)
 
         else:
             from tdc.single_pred import Tox
             data = Tox(name=dataset)
             split = data.get_split(method=split_method)
-            outputs = get_all_output(dataset, split)
+            outputs = get_all_output(dataset, split, instruction_format=instruction_format)
     
     elif dataset in SINGLE_HTS_TASK:
         from tdc.single_pred import HTS
         data = HTS(name=dataset)
         split = data.get_split(method=split_method)
-        outputs = get_all_output(dataset, split)
+        outputs = get_all_output(dataset, split, instruction_format=instruction_format)
     
     elif dataset in MULTI_DDI_TASK:
         from tdc.multi_pred import DDI
@@ -144,13 +148,13 @@ def get_outputs_of_dataset(dataset, split_method, reg=1):
             label_index = get_label_map(name="TWOSIDES", task="DDI", name_column="Side Effect Name")
         else:
             print("Dataset not exist!")
-        outputs = get_all_output(dataset, split, label_index=label_index)
+        outputs = get_all_output(dataset, split, instruction_format=instruction_format, label_index=label_index)
 
     elif dataset in GENERATE_RETROSYN_TASK:
         from tdc.generation import RetroSyn
         data = RetroSyn(name=dataset)
         split = data.get_split(method=split_method)
-        outputs = get_all_output(dataset, split)
+        outputs = get_all_output(dataset, split, instruction_format=instruction_format)
     
     else:
         print("Dataset not exist!")
@@ -162,17 +166,19 @@ def get_outputs_of_dataset(dataset, split_method, reg=1):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset", type=str, default="Caco2_Wang")
+    parser.add_argument("--dataset", type=str, default="PAMPA_NCATS")
     parser.add_argument("--split", type=str, default="random")
+    parser.add_argument("--instruction-format", type=bool, default=False)
     args = parser.parse_args()
 
     dataset = args.dataset
     if dataset == "Skin_Reaction":
         dataset = "Skin Reaction"
     
-    outputs = get_outputs_of_dataset(dataset, args.split)
+    outputs = get_outputs_of_dataset(dataset, args.split, instruction_format=args.instruction_format)
 
     print(f"Total examples of dataset \"{dataset}\": {len(outputs)}")
     print(f"Some examples of dataset \"{dataset}\":")
     for output in outputs[:3]:
         print(output)
+    print(json.loads(outputs[0])['text'])

@@ -9,9 +9,10 @@ from load_data import (ALL_TASK, CLASSIFICATION_ADME_TOX_TASK,
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=str, default="prompt_data")
+    parser.add_argument("--output-dir", type=str, default="instruction_data")
     parser.add_argument('--task-class', choices=['single', 'multi', 'generate', 'all', 
                                                  'classification', 'regression', 'classification_ADME_TOX', 'classification_HTS'], default='single')
+    parser.add_argument("--instruction-format", type=bool, default=False)
     args = parser.parse_args()
 
     all_task, single_task, multi_task, generate_task = ALL_TASK, SINGLE_TASK, MULTI_DDI_TASK, GENERATE_RETROSYN_TASK
@@ -33,9 +34,9 @@ if __name__ == "__main__":
             continue
         print(f"Preprocessing dataset {task}...")
         if args.task_class in ['classification', 'classification_ADME_TOX', 'classification_HTS']:
-            output = get_outputs_of_dataset(task, "random", reg=0)
+            output = get_outputs_of_dataset(task, "random", instruction_format=args.instruction_format, reg=0)
         else:
-            output = get_outputs_of_dataset(task, "random")
+            output = get_outputs_of_dataset(task, "random", instruction_format=args.instruction_format)
         print(f"Total examples of dataset {task}: {len(output)}")
         outputs.extend(output)
     

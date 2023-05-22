@@ -17,169 +17,325 @@ DRUG_Y = {
     "PAMPA_NCATS": {
         "common": r"The compound {smiles} has {label} permeability in parallel artificial membrane permeability assay(PAMPA assay).",
         "instruction_version": {
-            "instruction": "How permeable is the drug represented by SMILES below to the cellular membrane in the parallel artificial membrane permeability assay(PAMPA assay)?", 
-            # Does the drug have high permeability or low-to-moderate permeability across the cellular membrane?
-            "input": r"{smiles}",
-            "positive_response": "It has high permeability across the cellular membrane.",
-            "negative_response": "It has low-to-moderate permeability across the cellular membrane.",
+            "instruction": "Does the drug represented by SMILES below have high permeability or low-to-moderate permeability across the cellular membrane?", 
+            # How permeable is the drug represented by SMILES below to the cellular membrane in the parallel artificial membrane permeability assay(PAMPA assay)?
+            "input": "",
+            "positive_response": "High.",
+            "negative_response": "Low-to-moderate.",
         }
     },
     "HIA_Hou": {
-        "common": r"The HIA(Human Intestinal Absorption) activity of {smiles} is {label}.",
+        "common": r"The HIA (Human Intestinal Absorption) activity of {smiles} is {label}.",
         "instruction_version": {
             "instruction": "Can the drug represented by SMILES below be absorbed from the human gastrointestinal system into the bloodstream of the human body?",
-            "input": r"{smiles}",
-            "positive_response": "Yes, it can be absorbed from...", # TODO
-            "negative_response": "No, it can't be absorbed.",
+            "input": "",
+            "positive_response": "Yes.", # TODO
+            "negative_response": "No.",
         },
     },
     "Pgp_Broccatelli": {
-        "common": r"The drug {smiles} is {label} in inhibiting P-glycoprotein(Pgp).",
+        "common": r"The drug {smiles} is {label} in inhibiting P-glycoprotein (Pgp).",
         "instruction_version": {
             "instruction": "Can the drug represented by SMILES below inhibit P-glycoprotein (Pgp)?", # detailed description?
-            "input": r"{smiles}", # smiles
-            "positive_response": "Yes, it can inhibit P-glycoprotein.",
-            "negative_response": "No, it can't inhibit P-glycoprotein.",
+            "input": "", # smiles
+            "positive_response": "Yes.",
+            "negative_response": "No.",
         },
     },
     "Bioavailability_Ma": {
         "common": r"The oral bioavailability activity of {smiles} is {label}.",
         "instruction_version": {
             "instruction": "How is the oral bioavailability of this drug represented by SMILES below?",
-            "input": r"{smiles}", # smiles
-            "positive_response": "The oral bioavailability of it is active.", # or It is active?
-            "negative_response": "The oral bioavailability of it is inactive.",
+            "input": "", # smiles
+            "positive_response": "Active.", # or It is active?
+            "negative_response": "Inactive.",
         },
     },
 
-    "Lipophilicity_AstraZeneca": r"The ability of {smiles} to dissolve in a lipid (e.g. fats, oils) environment is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units? # experimental results of octanol/water distribution coefficient (logD at pH 7.4)
-    "Solubility_AqSolDB": r"The log solubility of {smiles} in water is <<reg_num_wei>>{label}<<reg_num_wei>> in mols per litre.", # regression # units: log solubility in mols per litre
+    "Lipophilicity_AstraZeneca": {
+        "common": r"The ability of {smiles} to dissolve in a lipid (e.g. fats, oils) environment is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units? # experimental results of octanol/water distribution coefficient (logD at pH 7.4)
+    },
+    "Solubility_AqSolDB": {
+        "common": r"The log solubility of {smiles} in water is <<reg_num_wei>>{label}<<reg_num_wei>> in mols per litre.", # regression # units: log solubility in mols per litre
+    },
     # "Solubility_AqSolDB": r"The ability of {smiles} to dissolve in water is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units? # measured log solubility in mols per litre
-    "HydrationFreeEnergy_FreeSolv": r"The log hydration free energy of {smiles} in water is <<reg_num_wei>>{label}<<reg_num_wei>> in kcals per mol.", # regression # units? # kcal/mol
+    "HydrationFreeEnergy_FreeSolv": {
+        "common": r"The log hydration free energy of {smiles} in water is <<reg_num_wei>>{label}<<reg_num_wei>> in kcals per mol.", # regression # units? # kcal/mol
+    },
     
     "BBB_Martins": {
-        "common": r"The ability of {smiles} to penetrate the Blood-Brain Barrier(BBB) is {label}.",
+        "common": r"The ability of {smiles} to penetrate the Blood-Brain Barrier (BBB) is {label}.",
         "instruction_version": {
-            "instruction": "Can the drug represented by SMILES below penetrate the blood-brain barrier(BBB)?",
-            "input": r"", # smiles
-            "positive_response": "Yes, it can penetrate the blood-brain barrier.",
-            "negative_response": "No, it can't penetrate the blood-brain barrier.",
+            "instruction": "Can the drug represented by SMILES below penetrate the blood-brain barrier (BBB)?",
+            "input": "", # smiles
+            "positive_response": "Yes.",
+            "negative_response": "No.",
         },
     },
 
-    "PPBR_AZ": r"The percentage of {smiles} bound to plasma proteins in the blood, i.e. its human plasma protein binding rate (PPBR) is <<reg_num_wei>>{label}<<reg_num_wei>>%.", # regression # units %
-    "VDss_Lombardo": r"The volume of distribution at steady state (VDss) of {smiles}, i.e. the degree of its concentration in body tissue compared to concentration in blood is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units? # improve
+    "PPBR_AZ": {
+        "common": r"The percentage of {smiles} bound to plasma proteins in the blood, i.e. its human plasma protein binding rate (PPBR) is <<reg_num_wei>>{label}<<reg_num_wei>>%.", # regression # units %
+    },
+    "VDss_Lombardo": {
+        "common": r"The volume of distribution at steady state (VDss) of {smiles}, i.e. the degree of its concentration in body tissue compared to concentration in blood is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units? # improve
+    },
     
     "CYP2C19_Veith": {
         "common": r"The drug {smiles} is {label} in inhibiting the CYP2C19 gene, which provides instructions for making an enzyme called the endoplasmic reticulum.",
         "instruction_version": {
             "instruction": "How is the activity of the drug represented by SMILES below in inhibiting the CYP2C19 gene?",
             # Is the drug represented by SMILES below active in inhibiting the CYP2C19 gene?
-            "input": r"", # smiles
-            "positive_response": "",
-            "negative_response": "",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
         },
     },
 
-    "CYP2D6_Veith": r"The drug {smiles} is {label} in inhibiting the CYP2D6, which is primarily expressed in the liver.",
-    "CYP3A4_Veith": r"The drug {smiles} is {label} in inhibiting the CYP3A4, which is an important enzyme that oxidizes small foreign organic molecules in the body.",
-    "CYP1A2_Veith": r"The drug {smiles} is {label} in inhibiting the CYP1A2, which is able to metabolize some PAHs to carcinogenic intermediates.",
-    "CYP2C9_Veith": r"The drug {smiles} is {label} in inhibiting the CYP2C9, which plays a major role in the oxidation of both xenobiotic and endogenous compounds.",
+    "CYP2D6_Veith": {
+        "common": r"The drug {smiles} is {label} in inhibiting the CYP2D6, which is primarily expressed in the liver.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below in inhibiting the CYP2D6?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
+    "CYP3A4_Veith": {
+        "common": r"The drug {smiles} is {label} in inhibiting the CYP3A4, which is an important enzyme that oxidizes small foreign organic molecules in the body.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below in inhibiting the CYP3A4?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
+    "CYP1A2_Veith": {
+        "common": r"The drug {smiles} is {label} in inhibiting the CYP1A2, which is able to metabolize some PAHs to carcinogenic intermediates.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below in inhibiting the CYP1A2?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
+    "CYP2C9_Veith": {
+        "common": r"The drug {smiles} is {label} in inhibiting the CYP2C9, which plays a major role in the oxidation of both xenobiotic and endogenous compounds.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below in inhibiting the CYP2C9?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
     "CYP2C9_Substrate_CarbonMangels": {
         "common": r"The drug {smiles} {label} a substrate to the CYP2C9 enzyme.",
         "instruction_version": {
             "instruction": "Is the drug represented by SMILES below a substrate to the CYP2C9 enzyme?",
-            "input": r"", # smiles
-            "positive_response": "Yes, it is.",
-            "negative_response": "No, it is not.",
+            "input": "", # smiles
+            "positive_response": "Yes.",
+            "negative_response": "No.",
         },
     },
-    "CYP2D6_Substrate_CarbonMangels": r"The drug {smiles} {label} a substrate to the CYP2D6 enzyme.",
-    "CYP3A4_Substrate_CarbonMangels": r"The drug {smiles} {label} a substrate to the CYP3A4 enzyme.",
+    "CYP2D6_Substrate_CarbonMangels": {
+        "common": r"The drug {smiles} {label} a substrate to the CYP2D6 enzyme.",
+        "instruction_version": {
+            "instruction": "Is the drug represented by SMILES below a substrate to the CYP2D6 enzyme?",
+            "input": "", # smiles
+            "positive_response": "Yes.",
+            "negative_response": "No.",
+        },
+    },
+    "CYP3A4_Substrate_CarbonMangels": {
+        "common": r"The drug {smiles} {label} a substrate to the CYP3A4 enzyme.",
+        "instruction_version": {
+            "instruction": "Is the drug represented by SMILES below a substrate to the CYP3A4 enzyme?",
+            "input": "", # smiles
+            "positive_response": "Yes.",
+            "negative_response": "No.",
+        },
+    },
 
-    "Half_Life_Obach": r"The half life duration of {smiles} is <<reg_num_wei>>{label}<<reg_num_wei>> hours.", # regression # units hours
-    "Clearance_Hepatocyte_AZ": r"The volume of plasma cleared of {smiles} over a specified time period, i.e. its drug clearance is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
+    "Half_Life_Obach": {
+        "common": r"The half life duration of {smiles} is <<reg_num_wei>>{label}<<reg_num_wei>> hours.", # regression # units hours
+    },
+    "Clearance_Hepatocyte_AZ": {
+        "common": r"The volume of plasma cleared of {smiles} over a specified time period, i.e. its drug clearance is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
+    },
     # ------ ADME
-    "LD50_Zhu": r"The acute toxicity of {smiles}, i.e. its most conservative dose that can lead to lethal adverse effects is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
+    "LD50_Zhu": {
+        "common": r"The acute toxicity of {smiles}, i.e. its most conservative dose that can lead to lethal adverse effects is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
+    },
     "hERG": {
         "common": r"The drug {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.", # the type of Y is 'float' although it's a classification task
         "instruction_version": {
             "instruction": "Does the drug represented by SMILES below block the Human ether-à-go-go related gene(hERG)?",
-            "input": r"", # smiles
-            "positive_response": "Yes, it blocks hERG.",
-            "negative_response": "No, it does not block hERG.",
+            "input": "", # smiles
+            "positive_response": "Yes.",
+            "negative_response": "No.",
         },
     },
-    "hERG_Karim": r"The drug {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.",
+    "hERG_Karim": {
+        "common": r"The drug {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.",
+        "instruction_version": {
+            "instruction": "Does the drug represented by SMILES below block the Human ether-à-go-go related gene(hERG)?",
+            "input": "", # smiles
+            "positive_response": "Yes.",
+            "negative_response": "No.",
+        },
+    },
     "AMES": {
         "common": r"Mutagenicity means the ability of a drug to induce genetic alterations, the drug {smiles} {label} mutagenic.",
         "instruction_version": {
             "instruction": "Is the drug represented by SMILES below mutagenic?",
-            "input": r"", # smiles
-            "positive_response": "Yes, it is mutagenic.",
-            "negative_response": "No, it's not mutagenic.",
+            "input": "", # smiles
+            "positive_response": "Yes.",
+            "negative_response": "No.",
         },
     },
     "DILI": {
         "common": r"The drug {smiles} {label} cause liver injury.",
         "instruction_version": {
-            "instruction": "Please tell me whether the drug represented by SMILES below can cause liver injury or not.",
-            "input": r"", # smiles
-            "positive_response": "This drug can cause liver injury.",
-            "negative_response": "This drug cannot cause liver injury.",
+            "instruction": "Can the drug represented by SMILES below cause liver injury?",
+            "input": "", # smiles
+            "positive_response": "Yes.",
+            "negative_response": "No.",
         },
     },
     "Skin Reaction": {
         "common": r"The drug {smiles} {label} cause skin reaction.",
         "instruction_version": {
             "instruction": "Can the drug represented by SMILES below cause skin reaction?",
-            "input": r"", # smiles
-            "positive_response": "Yes, This drug can cause skin reaction.",
-            "negative_response": "No, This drug cannot cause skin reaction.",
+            "input": "", # smiles
+            "positive_response": "Yes.",
+            "negative_response": "No.",
         },
     },
     "Carcinogens_Lagunin": {
         "common": r"The drug {smiles} {label} cause carcinogen, which is any substance, radionuclide, or radiation that promotes carcinogenesis, the formation of cancer.",
         "instruction_version": {
             "instruction": "Can the drug represented by SMILES below cause carcinogen?",
-            "input": r"", # smiles
-            "positive_response": "Yes, This drug can cause carcinogen.",
-            "negative_response": "No, This drug cannot cause carcinogen.",
+            "input": "", # smiles
+            "positive_response": "Yes.",
+            "negative_response": "No.",
         },
     },
-    "ClinTox": r"The drug {smiles} has {label} clinical trials for toxicity reasons.",
+    "ClinTox": { # MoleculeNet
+        "common": r"The drug {smiles} has {label} clinical trials for toxicity reasons.", 
+    },
     #  ------ Tox
     "SARSCoV2_Vitro_Touret": {
         "common": r"The activity of {smiles} against SARS-CoV-2 is {label}.",
         "instruction_version": {
             "instruction": "How is the activity of the drug represented by SMILES below against SARS-CoV-2?",
             # Is the drug represented by SMILES below active against SARS-CoV-2?
-            "input": r"", # smiles
-            "positive_response": "",
-            "negative_response": "",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
         },
     },
-    "SARSCoV2_3CLPro_Diamond": r"The activity of {smiles} against SARS-CoV-2 3C-like protease(SARSCoV2 3CL) is {label}.",
-    "HIV": r"The ability of {smiles} in inhibiting HIV replication, i.e. its activity against HIV virus is {label}.", # MoleculeNet
-    "orexin1_receptor_butkiewicz": r"The activity of {smiles} against Orexin1 Receptor(HCRTR1) is {label}.",
-    "m1_muscarinic_receptor_agonists_butkiewicz": r"The activity of {smiles} against M1 muscarinic receptor agonists is {label}.",
-    "m1_muscarinic_receptor_antagonists_butkiewicz": r"The activity of {smiles} against M1 muscarinic receptor antagonists is {label}.",
-    "potassium_ion_channel_kir2": r"The activity of {smiles} against potassium ion channel Kir2.1(KCNJ2) is {label}.",
-    "kcnq2_potassium_channel_butkiewicz": r"The activity of {smiles} against KCNQ2 potassium channel(Kv7.2) is {label}.",
-    "cav3_t-type_calcium_channels_butkiewicz": r"The activity of {smiles} against Cav3 T-type calcium channels is {label}.",
-    "choline_transporter_butkiewicz": r"The activity of {smiles} against Choline transporter is {label}.", # , a protein that mediates the transport of choline across cell membranes,
-    "serine_threonine_kinase_33_butkiewicz": r"The activity of {smiles} against Serine/threonine kinase 33(STK33) is {label}.",
-    "tyrosyl-dna_phosphodiesterase_butkiewicz": r"The activity of {smiles} against Tyrosyl-DNA phosphodiesterase 1(TDP1) is {label}.",
+    "SARSCoV2_3CLPro_Diamond": {
+        "common": r"The activity of {smiles} against SARS-CoV-2 3C-like protease (SARSCoV2 3CL) is {label}.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below against SARS-CoV-2 3C-like protease (SARSCoV2 3CL)?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
+    "HIV": { # MoleculeNet
+        "common": r"The ability of {smiles} in inhibiting HIV replication, i.e. its activity against HIV virus is {label}.",
+    },
+    "orexin1_receptor_butkiewicz": {
+        "common": r"The activity of {smiles} against Orexin1 Receptor (HCRTR1) is {label}.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below against Orexin1 Receptor (HCRTR1)?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
+    "m1_muscarinic_receptor_agonists_butkiewicz": {
+        "common": r"The activity of {smiles} against M1 muscarinic receptor agonists is {label}.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below against M1 muscarinic receptor agonists?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
+    "m1_muscarinic_receptor_antagonists_butkiewicz": {
+        "common": r"The activity of {smiles} against M1 muscarinic receptor antagonists is {label}.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below against M1 muscarinic receptor antagonists?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
+    "potassium_ion_channel_kir2": {
+        "common": r"The activity of {smiles} against potassium ion channel Kir2.1 (KCNJ2) is {label}.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below against potassium ion channel Kir2.1 (KCNJ2)?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
+    "kcnq2_potassium_channel_butkiewicz": {
+        "common": r"The activity of {smiles} against KCNQ2 potassium channel (Kv7.2) is {label}.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below against KCNQ2 potassium channel (Kv7.2)?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
+    "cav3_t-type_calcium_channels_butkiewicz": {
+        "common": r"The activity of {smiles} against Cav3 T-type calcium channels is {label}.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below against Cav3 T-type calcium channels?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
+    "choline_transporter_butkiewicz": {
+        "common": r"The activity of {smiles} against Choline transporter is {label}.", # , a protein that mediates the transport of choline across cell membranes,
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below against Choline transporter?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
+    "serine_threonine_kinase_33_butkiewicz": {
+        "common": r"The activity of {smiles} against Serine/threonine kinase 33 (STK33) is {label}.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below against Serine/threonine kinase 33 (STK33)?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
+    "tyrosyl-dna_phosphodiesterase_butkiewicz": {
+        "common": r"The activity of {smiles} against Tyrosyl-DNA phosphodiesterase 1 (TDP1) is {label}.",
+        "instruction_version": {
+            "instruction": "How is the activity of the drug represented by SMILES below against Tyrosyl-DNA phosphodiesterase 1 (TDP1)?",
+            "input": "", # smiles
+            "positive_response": "Active.",
+            "negative_response": "Inactive.",
+        },
+    },
     # ------ HTS
 }
 
-HERG_CENTRAL = { # DRUG_Y format
+HERG_CENTRAL = { # DRUG_Y format ignored
     "hERG_at_1uM": r"The percent inhibition of {smiles} to the Human ether-à-go-go related gene(hERG) at a 1µM concentration is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
     "hERG_at_10uM": r"The percent inhibition of {smiles} to the Human ether-à-go-go related gene(hERG) at a 10µM concentration is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
     "hERG_inhib": r"The drug {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.", # whether hERG_at_10uM < -50, i.e. whether the compound has an IC50 of less than 10µM.
 }
 
-TOX21 = { # DRUG_Y format
+TOX21 = { # DRUG_Y format # MoleculeNet
     "NR-AR": {
         "common": r"The compound {smiles} {label} activate the Androgen Receptor(AR).",
         "instruction_version": {
@@ -210,19 +366,20 @@ DRUG1_DRUG2_Y = {
     "TWOSIDES": {
         "common": r"The concurrent use of {smiles_1} and {smiles_2} can cause many polypharmacy side-effects, including {label}.",
         "instruction_version": {
-            "instruction": "Can the concurrent use of the following two drugs represented by SMILES cause side effects?",
-            "input": r"smiles1: {smiles_1}, smiles2: {smiles_2},", # smiles
-            "positive_response": "Yes, it can cause many side effects, including {label}.",
-            "negative_response": "No, you can use it without worries.",
+            "instruction": "What are the side effects of the concurrent use of the following two drugs represented by SMILES?",
+            # Can the concurrent use of the following two drugs represented by SMILES cause side effects?
+            "input": "", # smiles
+            "positive_response": "",
+            # "negative_response": "No, you can use it without worries.",
         },
     },
     "DrugBank": { # {1: '#Drug1 may increase the photosensitizing activities of #Drug2.', 2: '#Drug1 may increase the anticholinergic activities of #Drug2.', 3: 'The bioavailability of #Drug2 can be decreased when combined with #Drug1.', 4: 'The metabolism of #Drug2 can be increased when combined with #Drug1.', 5: '#Drug1 may decrease the vasoconstricting activities of #Drug2.', 6: '#Drug1 may increase the anticoagulant activities of #Drug2.', 7: '#Drug1 may increase the ototoxic activities of #Drug2.', 8: 'The therapeutic efficacy of #Drug2 can be increased when used in combination with #Drug1.', 9: '#Drug1 may increase the hypoglycemic activities of #Drug2.', 10: '#Drug1 may increase the antihypertensive activities of #Drug2.', 11: 'The serum concentration of the active metabolites of #Drug2 can be reduced when #Drug2 is used in combination with #Drug1 resulting in a loss in efficacy.', 12: '#Drug1 may decrease the anticoagulant activities of #Drug2.', 13: 'The absorption of #Drug2 can be decreased when combined with #Drug1.', 14: '#Drug1 may decrease the bronchodilatory activities of #Drug2.', 15: '#Drug1 may increase the cardiotoxic activities of #Drug2.', 16: '#Drug1 may increase the central nervous system depressant (CNS depressant) activities of #Drug2.', 17: '#Drug1 may decrease the neuromuscular blocking activities of #Drug2.', 18: '#Drug1 can cause an increase in the absorption of #Drug2 resulting in an increased serum concentration and potentially a worsening of adverse effects.', 19: '#Drug1 may increase the vasoconstricting activities of #Drug2.', 20: '#Drug1 may increase the QTc-prolonging activities of #Drug2.', 21: '#Drug1 may increase the neuromuscular blocking activities of #Drug2.', 22: '#Drug1 may increase the adverse neuromuscular activities of #Drug2.', 23: '#Drug1 may increase the stimulatory activities of #Drug2.', 24: '#Drug1 may increase the hypocalcemic activities of #Drug2.', 25: '#Drug1 may increase the atrioventricular blocking (AV block) activities of #Drug2.', 26: '#Drug1 may decrease the antiplatelet activities of #Drug2.', 27: '#Drug1 may increase the neuroexcitatory activities of #Drug2.', 28: '#Drug1 may increase the dermatologic adverse activities of #Drug2.', 29: '#Drug1 may decrease the diuretic activities of #Drug2.', 30: '#Drug1 may increase the orthostatic hypotensive activities of #Drug2.', 31: 'The risk or severity of hypertension can be increased when #Drug2 is combined with #Drug1.', 32: '#Drug1 may increase the sedative activities of #Drug2.', 33: 'The risk or severity of QTc prolongation can be increased when #Drug1 is combined with #Drug2.', 34: '#Drug1 may increase the immunosuppressive activities of #Drug2.', 35: '#Drug1 may increase the neurotoxic activities of #Drug2.', 36: '#Drug1 may increase the antipsychotic activities of #Drug2.', 37: '#Drug1 may decrease the antihypertensive activities of #Drug2.', 38: '#Drug1 may increase the vasodilatory activities of #Drug2.', 39: '#Drug1 may increase the constipating activities of #Drug2.', 40: '#Drug1 may increase the respiratory depressant activities of #Drug2.', 41: '#Drug1 may increase the hypotensive and central nervous system depressant (CNS depressant) activities of #Drug2.', 42: 'The risk or severity of hyperkalemia can be increased when #Drug1 is combined with #Drug2.', 43: 'The protein binding of #Drug2 can be decreased when combined with #Drug1.', 44: '#Drug1 may increase the central neurotoxic activities of #Drug2.', 45: '#Drug1 may decrease effectiveness of #Drug2 as a diagnostic agent.', 46: '#Drug1 may increase the bronchoconstrictory activities of #Drug2.', 47: 'The metabolism of #Drug2 can be decreased when combined with #Drug1.', 48: '#Drug1 may increase the myopathic rhabdomyolysis activities of #Drug2.', 49: 'The risk or severity of adverse effects can be increased when #Drug1 is combined with #Drug2.', 50: 'The risk or severity of heart failure can be increased when #Drug2 is combined with #Drug1.', 51: '#Drug1 may increase the hypercalcemic activities of #Drug2.', 52: '#Drug1 may decrease the analgesic activities of #Drug2.', 53: '#Drug1 may increase the antiplatelet activities of #Drug2.', 54: '#Drug1 may increase the bradycardic activities of #Drug2.', 55: '#Drug1 may increase the hyponatremic activities of #Drug2.', 56: 'The risk or severity of hypotension can be increased when #Drug1 is combined with #Drug2.', 57: '#Drug1 may increase the nephrotoxic activities of #Drug2.', 58: '#Drug1 may decrease the cardiotoxic activities of #Drug2.', 59: '#Drug1 may increase the ulcerogenic activities of #Drug2.', 60: '#Drug1 may increase the hypotensive activities of #Drug2.', 61: '#Drug1 may decrease the stimulatory activities of #Drug2.', 62: 'The bioavailability of #Drug2 can be increased when combined with #Drug1.', 63: '#Drug1 may increase the myelosuppressive activities of #Drug2.', 64: '#Drug1 may increase the serotonergic activities of #Drug2.', 65: '#Drug1 may increase the excretion rate of #Drug2 which could result in a lower serum level and potentially a reduction in efficacy.', 66: 'The risk or severity of bleeding can be increased when #Drug1 is combined with #Drug2.', 67: '#Drug1 can cause a decrease in the absorption of #Drug2 resulting in a reduced serum concentration and potentially a decrease in efficacy.', 68: '#Drug1 may increase the hyperkalemic activities of #Drug2.', 69: '#Drug1 may increase the analgesic activities of #Drug2.', 70: 'The therapeutic efficacy of #Drug2 can be decreased when used in combination with #Drug1.', 71: '#Drug1 may increase the hypertensive activities of #Drug2.', 72: '#Drug1 may decrease the excretion rate of #Drug2 which could result in a higher serum level.', 73: 'The serum concentration of #Drug2 can be increased when it is combined with #Drug1.', 74: '#Drug1 may increase the fluid retaining activities of #Drug2.', 75: 'The serum concentration of #Drug2 can be decreased when it is combined with #Drug1.', 76: '#Drug1 may decrease the sedative activities of #Drug2.', 77: 'The serum concentration of the active metabolites of #Drug2 can be increased when #Drug2 is used in combination with #Drug1.', 78: '#Drug1 may increase the hyperglycemic activities of #Drug2.', 79: '#Drug1 may increase the central nervous system depressant (CNS depressant) and hypertensive activities of #Drug2.', 80: '#Drug1 may increase the hepatotoxic activities of #Drug2.', 81: '#Drug1 may increase the thrombogenic activities of #Drug2.', 82: '#Drug1 may increase the arrhythmogenic activities of #Drug2.', 83: '#Drug1 may increase the hypokalemic activities of #Drug2.', 84: '#Drug1 may increase the vasopressor activities of #Drug2.', 85: '#Drug1 may increase the tachycardic activities of #Drug2.', 86: 'The risk of a hypersensitivity reaction to #Drug2 is increased when it is combined with #Drug1.'}
         "common": r"xxxxxxxxxxx", # label_list
         "instruction_version": {
             "instruction": "Is there any interaction between the following two drugs represented by SMILES?",
-            "input": r"smiles1: {smiles_1}, smiles2: {smiles_2},", # smiles
+            "input": "", # smiles
             "positive_response": "",
-            "negative_response": "",
+            # "negative_response": "",
         },
     },
 } 
@@ -233,25 +390,12 @@ P_R = {
         "common": r"To synthesize {product}, we can use the reactant {reactant}.",
         "instruction_version": {
             "instruction": "What can I use as reactants to synthesize the compound represented by the SMILES below?",
-            "input": r"{smiles}",
-            "positive_response": "Yes, it can cause many side effects, including {label}.",
-            "negative_response": "No, you can use it without worries",
+            "input": "",
+            "positive_response": "{reactant}",
+            # "negative_response": "No, you can use it without worries",
         },
     }
 }
-
-# R_C_P_L = {
-#     "Buchwald-Hartwig": r"In Pd-catalysed Buchwald-Hartwig C-N cross coupling reactions, the yields of product {product},", # todo
-#     "USPTO_Yields": r"The yields of product {product} {reactant} {catalyst} is {label}.", # todo
-# }
-
-# R_C_P = {
-#     "USPTO_Catalyst": r"",
-# }
-
-# R_P = {
-#     "USPTO_reaction": r"", # noticed
-# }
 
 SINGLE_REGRESSION_TASK = ["Caco2_Wang", "Lipophilicity_AstraZeneca", "Solubility_AqSolDB",
                           "HydrationFreeEnergy_FreeSolv", "PPBR_AZ", "VDss_Lombardo", "Half_Life_Obach", "Clearance_Hepatocyte_AZ",
@@ -354,7 +498,26 @@ def smi_preprocess(smi):
 
     return smi
 
-def task_hub(dataset, data, subtask=None, label_index=None):
+def generate_prompt(instruction, input, response, system_message=None,):
+    '''
+    system message...
+    
+    ### Instruction:
+    {instruction}
+
+    ### Input:
+    {input}
+
+    ### Response:
+    '''
+    if system_message:
+        prompt = system_message + "\n\n" + "### Instruction:\n" + instruction + "\n\n" + "### Input:\n" + input + "\n\n" + "### Response:\n" + response
+    else:
+        prompt = "### Instruction:\n" + instruction + "\n\n" + "### Input:\n" + input + "\n\n" + "### Response:\n" + response
+    return prompt
+
+
+def instruction_task_hub(dataset, data, subtask=None, label_index=None):
     '''
     subtask: for multi-subtask tasks, e.g. tox21.
     label_index: for DDI task
@@ -403,8 +566,9 @@ def task_hub(dataset, data, subtask=None, label_index=None):
 
     elif dataset == "DrugBank":
         drug1, drug2, y = data['Drug1'], data['Drug2'], data['Y']
+        prompt = DRUG1_DRUG2_Y[dataset]
         prompt_dict = label_index
-        output = get_drugbank_prompt(drug1, drug2, y, prompt_dict)
+        output = get_drugbank_prompt(prompt, drug1, drug2, y, prompt_dict)
 
     elif dataset == "TWOSIDES":
         drug1, drug2, y = data['Drug1'], data['Drug2'], data['Y']
@@ -428,16 +592,20 @@ def get_regression_prompt(prompt, Drug, Y):
     '''
     Regression Task
     '''
+    output = []
+    if "instruction_version" not in prompt.keys():
+        return output
+    ### 
     assert len(Drug) == len(Y)
 
     Drug = drug_preprocess(Drug)
 
-    output = []
+    instruction_prompt = prompt["instruction_version"]
     for x, y in zip(Drug, Y):
         x = smi_preprocess(x)
         if x == None:
             continue
-
+        
         data_dict = {}
         data_dict["text"] = prompt.format(smiles="<<|mol0|>>", label=y)
         data_dict["entities"] = {"<<|mol0|>>": {"smiles": x}}
@@ -450,47 +618,66 @@ def get_classification_prompt(prompt, Drug, Y, label_dict=None):
     '''
     Classification Task
     '''
+    output = []
+    if "instruction_version" not in prompt.keys():
+        return output
     assert len(Drug) == len(Y)
     
     Drug = drug_preprocess(Drug)
     Y = [int(y) for y in Y]
 
-    output = []
+    instruction_prompt = prompt["instruction_version"]
     for x, y in zip(Drug, Y):
         x = smi_preprocess(x)
         if x == None:
             continue
+        instruction_ = instruction_prompt["instruction"]
+        input_ = "<<|mol0|>>"
+        response_ = instruction_prompt["positive_response"] if y==1 else instruction_prompt["negative_response"]
         
         data_dict = {}
-        data_dict["text"] = prompt.format(smiles="<<|mol0|>>", label=label_dict[y])
+        data_dict["text"] = generate_prompt(instruction_, input_, response_)
         data_dict["entities"] = {"<<|mol0|>>": {"smiles": x}}
         output.append(json.dumps(data_dict))
 
     # output = [prompt.format(smiles=x, label=label_dict[y]) for x, y in zip(Drug, Y)]
     return output
 
-def get_drugbank_prompt(Drug1, Drug2, Y, prompt_dict):
+def get_drugbank_prompt(prompt, Drug1, Drug2, Y, prompt_dict):
+    output = []
+    if "instruction_version" not in prompt.keys():
+        return output
     assert len(Drug1) == len(Y)
     assert len(Drug2) == len(Y)
 
     Drug1, Drug2 = drug_preprocess(Drug1), drug_preprocess(Drug2)
     Y = [int(y) for y in Y]
 
-    output = []
+    instruction_prompt = prompt["instruction_version"]
     for d1, d2, y in zip(Drug1, Drug2, Y):
         d1, d2 = smi_preprocess(d1), smi_preprocess(d2)
         if d1 == None or d2 == None:
             continue
 
+        instruction_ = instruction_prompt["instruction"]
+        input_ = "Drug1: <<|mol0|>>, drug2: <<|mol1|>>"
+        response_ = prompt_dict[y].replace("#Drug1", "drug1").replace("#Drug2", "drug2")
+        if response_.startswith("drug"):
+            response_ = "D" + response_[1:]
+
+        text = generate_prompt(instruction_, input_, response_)
+
         data_dict = {}
-        prompt = prompt_dict[y]
-        data_dict["text"] = prompt.replace("#Drug1", "<<|mol0|>>").replace("#Drug2", "<<|mol1|>>")
+        data_dict["text"] = text
         data_dict["entities"] = {"<<|mol0|>>": {"smiles": d1}, "<<|mol1|>>": {"smiles": d2}}
         output.append(json.dumps(data_dict))
     
     return output
 
 def get_twosides_prompt(prompt, Drug1, Drug2, Y, side_effect_dict):
+    output = []
+    if "instruction_version" not in prompt.keys():
+        return output
     assert len(Drug1) == len(Y)
     assert len(Drug2) == len(Y)
 
@@ -509,7 +696,7 @@ def get_twosides_prompt(prompt, Drug1, Drug2, Y, side_effect_dict):
             drugpair_effect[drug_pair1] = [y]
     # print(len(drugpair_effect))
     
-    output = []
+    instruction_prompt = prompt["instruction_version"]
     for drug_pair, y in tqdm(drugpair_effect.items()):
         d1, d2 = drug_pair[0], drug_pair[1]
         d1, d2 = smi_preprocess(d1), smi_preprocess(d2)
@@ -522,8 +709,11 @@ def get_twosides_prompt(prompt, Drug1, Drug2, Y, side_effect_dict):
             side_effects = ", ".join([side_effect_dict[yy] for yy in y[:-1]]) + " and " + side_effect_dict[y[-1]]
         # side_effects = ", ".join([side_effect_dict[yy] for yy in y])
 
+        instruction_ = instruction_prompt["instruction"]
+        input_ = "Drug1: <<|mol0|>>, drug2: <<|mol1|>>"
+        response_ = side_effects
         data_dict = {}
-        data_dict["text"] = prompt.format(smiles_1="<<|mol0|>>", smiles_2="<<|mol1|>>", label=side_effects)
+        data_dict["text"] = generate_prompt(instruction_, input_, response_)
         data_dict["entities"] = {"<<|mol0|>>": {"smiles": d1}, "<<|mol1|>>": {"smiles": d2}}
         output.append(json.dumps(data_dict))
     
@@ -531,17 +721,25 @@ def get_twosides_prompt(prompt, Drug1, Drug2, Y, side_effect_dict):
     return output
 
 def get_P_R_prompt(prompt, P, R):
+    # "instruction": "What can I use as reactants to synthesize the compound represented by the SMILES below?"
+    output = []
+    if "instruction_version" not in prompt.keys():
+        return output
     assert len(P) == len(R)
 
     P, R = drug_preprocess(P), drug_preprocess(R)
 
-    output = []
+    instruction_prompt = prompt["instruction_version"]
     for p, r in zip(P, R):
         p, r = smi_preprocess(p), smi_preprocess(r)
         if p == None or r == None:
             continue
+        instruction_ = instruction_prompt["instruction"]
+        input_ = "<<|mol0|>>"
+        response_ = r
+
         data_dict = {}
-        data_dict["text"] = prompt.format(product="<<|mol0|>>", reactant=r)
+        data_dict["text"] = generate_prompt(instruction_, input_, response_)
         data_dict["entities"] = {"<<|mol0|>>": {"smiles": p}}
 
         # data_dict["text"] = prompt.format(product=p, reactant="<<|mol0|>>")

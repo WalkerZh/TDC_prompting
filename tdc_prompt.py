@@ -10,15 +10,15 @@ from tqdm import tqdm
 
 DRUG_Y = {
     "Caco2_Wang": r"The experimental result on the rate of {smiles} passing through the Caco-2 cells is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression log cm/s
-    "PAMPA_NCATS": r"The compound {smiles} has {label} permeability in parallel artificial membrane permeability assay(PAMPA assay).",
-    "HIA_Hou": r"The HIA(Human Intestinal Absorption) activity of {smiles} is {label}.",
-    "Pgp_Broccatelli": r"The drug {smiles} is {label} in inhibiting P-glycoprotein(Pgp).",
+    "PAMPA_NCATS": r"The compound {smiles} has {label} permeability in parallel artificial membrane permeability assay (PAMPA assay).",
+    "HIA_Hou": r"The HIA (Human Intestinal Absorption) activity of {smiles} is {label}.",
+    "Pgp_Broccatelli": r"The drug {smiles} is {label} in inhibiting P-glycoprotein (Pgp).",
     "Bioavailability_Ma": r"The oral bioavailability activity of {smiles} is {label}.",
     "Lipophilicity_AstraZeneca": r"The ability of {smiles} to dissolve in a lipid (e.g. fats, oils) environment is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units? # experimental results of octanol/water distribution coefficient (logD at pH 7.4)
     "Solubility_AqSolDB": r"The log solubility of {smiles} in water is <<reg_num_wei>>{label}<<reg_num_wei>> in mols per litre.", # regression # units: log solubility in mols per litre
     # "Solubility_AqSolDB": r"The ability of {smiles} to dissolve in water is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units? # measured log solubility in mols per litre
     "HydrationFreeEnergy_FreeSolv": r"The log hydration free energy of {smiles} in water is <<reg_num_wei>>{label}<<reg_num_wei>> in kcals per mol.", # regression # units? # kcal/mol
-    "BBB_Martins": r"The ability of {smiles} to penetrate the Blood-Brain Barrier(BBB) is {label}.",
+    "BBB_Martins": r"The ability of {smiles} to penetrate the Blood-Brain Barrier (BBB) is {label}.",
     "PPBR_AZ": r"The percentage of {smiles} bound to plasma proteins in the blood, i.e. its human plasma protein binding rate (PPBR) is <<reg_num_wei>>{label}<<reg_num_wei>>%.", # regression # units %
     "VDss_Lombardo": r"The volume of distribution at steady state (VDss) of {smiles}, i.e. the degree of its concentration in body tissue compared to concentration in blood is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units? # improve
     "CYP2C19_Veith": r"The drug {smiles} is {label} in inhibiting the CYP2C19 gene, which provides instructions for making an enzyme called the endoplasmic reticulum.",
@@ -33,8 +33,8 @@ DRUG_Y = {
     "Clearance_Hepatocyte_AZ": r"The volume of plasma cleared of {smiles} over a specified time period, i.e. its drug clearance is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
     # ------ ADME
     "LD50_Zhu": r"The acute toxicity of {smiles}, i.e. its most conservative dose that can lead to lethal adverse effects is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
-    "hERG": r"The drug {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.", # the type of Y is 'float' although it's a classification task
-    "hERG_Karim": r"The drug {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.",
+    "hERG": r"The drug {smiles} {label} the Human ether-à-go-go related gene (hERG), which is crucial for the coordination of the heart's beating.", # the type of Y is 'float' although it's a classification task
+    "hERG_Karim": r"The drug {smiles} {label} the Human ether-à-go-go related gene (hERG), which is crucial for the coordination of the heart's beating.",
     "AMES": r"Mutagenicity means the ability of a drug to induce genetic alterations, the drug {smiles} {label} mutagenic.",
     "DILI": r"The drug {smiles} {label} cause liver injury.",
     "Skin Reaction": r"The drug {smiles} {label} cause skin reaction.",
@@ -42,38 +42,38 @@ DRUG_Y = {
     "ClinTox": r"The drug {smiles} has {label} clinical trials for toxicity reasons.",
     #  ------ Tox
     "SARSCoV2_Vitro_Touret": r"The activity of {smiles} against SARS-CoV-2 is {label}.",
-    "SARSCoV2_3CLPro_Diamond": r"The activity of {smiles} against SARS-CoV-2 3C-like protease(SARSCoV2 3CL) is {label}.",
+    "SARSCoV2_3CLPro_Diamond": r"The activity of {smiles} against SARS-CoV-2 3C-like protease (SARSCoV2 3CL) is {label}.",
     "HIV": r"The ability of {smiles} in inhibiting HIV replication, i.e. its activity against HIV virus is {label}.",
-    "orexin1_receptor_butkiewicz": r"The activity of {smiles} against Orexin1 Receptor(HCRTR1) is {label}.",
+    "orexin1_receptor_butkiewicz": r"The activity of {smiles} against Orexin1 Receptor (HCRTR1) is {label}.",
     "m1_muscarinic_receptor_agonists_butkiewicz": r"The activity of {smiles} against M1 muscarinic receptor agonists is {label}.",
     "m1_muscarinic_receptor_antagonists_butkiewicz": r"The activity of {smiles} against M1 muscarinic receptor antagonists is {label}.",
-    "potassium_ion_channel_kir2": r"The activity of {smiles} against potassium ion channel Kir2.1(KCNJ2) is {label}.",
-    "kcnq2_potassium_channel_butkiewicz": r"The activity of {smiles} against KCNQ2 potassium channel(Kv7.2) is {label}.",
+    "potassium_ion_channel_kir2": r"The activity of {smiles} against potassium ion channel Kir2.1 (KCNJ2) is {label}.",
+    "kcnq2_potassium_channel_butkiewicz": r"The activity of {smiles} against KCNQ2 potassium channel (Kv7.2) is {label}.",
     "cav3_t-type_calcium_channels_butkiewicz": r"The activity of {smiles} against Cav3 T-type calcium channels is {label}.",
     "choline_transporter_butkiewicz": r"The activity of {smiles} against Choline transporter is {label}.", # , a protein that mediates the transport of choline across cell membranes,
-    "serine_threonine_kinase_33_butkiewicz": r"The activity of {smiles} against Serine/threonine kinase 33(STK33) is {label}.",
-    "tyrosyl-dna_phosphodiesterase_butkiewicz": r"The activity of {smiles} against Tyrosyl-DNA phosphodiesterase 1(TDP1) is {label}.",
+    "serine_threonine_kinase_33_butkiewicz": r"The activity of {smiles} against Serine/threonine kinase 33 (STK33) is {label}.",
+    "tyrosyl-dna_phosphodiesterase_butkiewicz": r"The activity of {smiles} against Tyrosyl-DNA phosphodiesterase 1 (TDP1) is {label}.",
     # ------ HTS
 }
 
 HERG_CENTRAL = { # DRUG_Y format
-    "hERG_at_1uM": r"The percent inhibition of {smiles} to the Human ether-à-go-go related gene(hERG) at a 1µM concentration is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
-    "hERG_at_10uM": r"The percent inhibition of {smiles} to the Human ether-à-go-go related gene(hERG) at a 10µM concentration is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
-    "hERG_inhib": r"The drug {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.", # whether hERG_at_10uM < -50, i.e. whether the compound has an IC50 of less than 10µM.
+    "hERG_at_1uM": r"The percent inhibition of {smiles} to the Human ether-à-go-go related gene (hERG) at a 1µM concentration is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
+    "hERG_at_10uM": r"The percent inhibition of {smiles} to the Human ether-à-go-go related gene (hERG) at a 10µM concentration is <<reg_num_wei>>{label}<<reg_num_wei>>.", # regression # units?
+    "hERG_inhib": r"The drug {smiles} {label} the Human ether-à-go-go related gene (hERG), which is crucial for the coordination of the heart's beating.", # whether hERG_at_10uM < -50, i.e. whether the compound has an IC50 of less than 10µM.
 }
 
 TOX21 = { # DRUG_Y format
-    "NR-AR": r"The compound {smiles} {label} activate the Androgen Receptor(AR).",
-    "NR-AR-LBD": r"The compound {smiles} {label} activate the Androgen Receptor Ligand Binding Domain(AR-LBD).",
-    "NR-AhR": r"The compound {smiles} {label} activate the aryl hydrocarbon Receptor(AhR).",
+    "NR-AR": r"The compound {smiles} {label} activate the Androgen Receptor (AR).",
+    "NR-AR-LBD": r"The compound {smiles} {label} activate the Androgen Receptor Ligand Binding Domain (AR-LBD).",
+    "NR-AhR": r"The compound {smiles} {label} activate the aryl hydrocarbon Receptor (AhR).",
     "NR-Aromatase": r"The compound {smiles} {label} activate the aromatase.",
-    "NR-ER": r"The compound {smiles} {label} activate the Estrogen Receptor(ER).",
-    "NR-ER-LBD": r"The compound {smiles} {label} activate the Estrogen Receptor Ligand Binding Domain(ER-LBD).",
-    "NR-PPAR-gamma": r"The compound {smiles} {label} activate the peroxisome proliferator-activated receptor gamma(PPAR-gamma).",
-    "SR-ARE": r"The compound {smiles} {label} activate the Antioxidant Response Element(ARE).",
-    "SR-ATAD5": r"The compound {smiles} {label} activate the ATPase family AAA domain-containing protein 5(ATAD5).",
-    "SR-HSE": r"The compound {smiles} {label} activate the Heat Shock Response Element(HSE).",
-    "SR-MMP": r"The compound {smiles} {label} activate the Mitochondrial Membrane Potential(MMP).",
+    "NR-ER": r"The compound {smiles} {label} activate the Estrogen Receptor (ER).",
+    "NR-ER-LBD": r"The compound {smiles} {label} activate the Estrogen Receptor Ligand Binding Domain (ER-LBD).",
+    "NR-PPAR-gamma": r"The compound {smiles} {label} activate the peroxisome proliferator-activated receptor gamma (PPAR-gamma).",
+    "SR-ARE": r"The compound {smiles} {label} activate the Antioxidant Response Element (ARE).",
+    "SR-ATAD5": r"The compound {smiles} {label} activate the ATPase family AAA domain-containing protein 5 (ATAD5).",
+    "SR-HSE": r"The compound {smiles} {label} activate the Heat Shock Response Element (HSE).",
+    "SR-MMP": r"The compound {smiles} {label} activate the Mitochondrial Membrane Potential (MMP).",
     "SR-p53": r"The compound {smiles} {label} activate the tumor protein p53.",
 }
 

@@ -36,7 +36,7 @@ DRUG_Y = {
     "hERG": r"The drug {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.", # the type of Y is 'float' although it's a classification task
     "hERG_Karim": r"The drug {smiles} {label} the Human ether-à-go-go related gene(hERG), which is crucial for the coordination of the heart's beating.",
     "AMES": r"Mutagenicity means the ability of a drug to induce genetic alterations, the drug {smiles} {label} mutagenic.",
-    "DILI": r"The drug {smiles} {label} cause liver injury.",
+    "DILI": r"The drug {smiles} {label} cause liver injury.", # That the drug {smiles} can cause liver injury is {label}.
     "Skin Reaction": r"The drug {smiles} {label} cause skin reaction.",
     "Carcinogens_Lagunin": r"The drug {smiles} {label} cause carcinogen, which is any substance, radionuclide, or radiation that promotes carcinogenesis, the formation of cancer.",
     "ClinTox": r"The drug {smiles} has {label} clinical trials for toxicity reasons.",

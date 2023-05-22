@@ -181,6 +181,21 @@ CLASSIFICATION_LABEL = {
     # ------ HTS
 }
 
+def SMILES_tokenizer(smi):
+    # copief from https://github.com/xyc1207/DVMP/blob/main/molecule/tokenize_re.py
+    pattern =  "(\[[^\]]+]|Br?|Cl?|N|O|S|P|F|I|b|c|n|o|s|p|\(|\)|\.|=|#|-|\+|\\\\|\/|:|~|@|\?|>|\*|\$|\%[0-9]{2}|[0-9])"
+    regex = re.compile(pattern)
+    m = Chem.MolFromSmiles(smi)
+    smi = Chem.MolToSmiles(m)
+    tokens = [token for token in regex.findall(smi)]
+    try:
+        assert re.sub('\s+', '', smi) == ''.join(tokens)
+    except:
+        return ''
+    
+    tokens_tagged = ["<m>"+t for t in tokens]
+
+    return ' '.join(tokens_tagged)
 
 def drug_preprocess(drug):
     '''

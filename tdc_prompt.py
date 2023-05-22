@@ -73,7 +73,7 @@ TOX21 = { # DRUG_Y format
     "SR-ARE": r"The compound {smiles} {label} activate the Antioxidant Response Element(ARE).",
     "SR-ATAD5": r"The compound {smiles} {label} activate the ATPase family AAA domain-containing protein 5(ATAD5).",
     "SR-HSE": r"The compound {smiles} {label} activate the Heat Shock Response Element(HSE).",
-    "SR-MMP": r"The compound {smiles} {label} activate the Matrix Metalloproteinase(MMP).",
+    "SR-MMP": r"The compound {smiles} {label} activate the Mitochondrial Membrane Potential(MMP).",
     "SR-p53": r"The compound {smiles} {label} activate the tumor protein p53.",
 }
 

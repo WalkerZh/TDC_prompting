@@ -64,7 +64,7 @@ DRUG_Y = {
     },
     
     "BBB_Martins": {
-        "common": r"The ability of {smiles} to penetrate the Blood-Brain Barrier (BBB) is {label}.",
+        "common": r"The ability of {smiles} to penetrate the blood-brain barrier (BBB) is {label}.",
         "instruction_version": {
             "instruction": "Can the drug represented by SMILES below penetrate the blood-brain barrier (BBB)?",
             "input": "", # smiles

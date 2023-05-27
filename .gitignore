@@ -1,4 +1,5 @@
 __pycache__
 data/
 prompt_data/
+instruction_data/
 try.py
